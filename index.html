@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OMDB Movie Search</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app">
+    <h1>CineScope</h1>
+    <p class="subtitle">Search for a movie and see its basic information.</p>
+
+    <div class="search-box">
+      <input type="text" id="movieInput" placeholder="Enter a movie name..." />
+      <button onclick="searchMovie()">Search</button>
+    </div>
+
+    <p id="message"></p>
+    <div id="loader" class="loader hidden"></div>
+    <div id="movieCard" class="movie-card hidden">
+      <img id="poster" src="" alt="Movie Poster" />
+
+      <div class="movie-info">
+        <h2 id="title"></h2>
+        <p><strong>Year:</strong> <span id="year"></span></p>
+        <p><strong>Genre:</strong> <span id="genre"></span></p>
+        <p><strong>Director:</strong> <span id="director"></span></p>
+        <p><strong>IMDb Rating:</strong> <span id="rating"></span></p>
+        <p id="plot"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
