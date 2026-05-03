@@ -11,7 +11,8 @@ movieInput.addEventListener("keydown", function (event) {
 
 async function searchMovie() {
   const movieName = movieInput.value.trim();
-  const language = document.getElementById("language").value;
+  const languageSelect = document.getElementById("language");
+  const language = languageSelect ? languageSelect.value : "tr-TR";
 
   if (movieName === "") {
     message.textContent = "Please enter a movie name.";
