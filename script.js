@@ -25,7 +25,7 @@ async function searchMovie() {
   movieCard.classList.add("hidden");
 
   try {
-    const tmdbUrl = `/.netlify/functions/movie?query=${encodeURIComponent(movieName)}&lang=${language}`;
+    const tmdbUrl = `/api/movie?query=${encodeURIComponent(movieName)}&lang=${language}`;
     const tmdbResponse = await fetch(tmdbUrl);
     const tmdbData = await tmdbResponse.json();
 
@@ -70,11 +70,11 @@ async function getMovieDetailsFromTMDb(tmdbId) {
   loader.classList.remove("hidden");
 
   try {
-    const detailUrl = `/.netlify/functions/movie?tmdbDetailId=${tmdbId}&lang=${language}`;
+    const detailUrl = `/api/movie?tmdbDetailId=${tmdbId}&lang=${language}`;
     const detailResponse = await fetch(detailUrl);
     const tmdbDetail = await detailResponse.json();
 
-    const imdbUrl = `/.netlify/functions/movie?tmdbId=${tmdbId}`;
+    const imdbUrl = `/api/movie?tmdbId=${tmdbId}`;
     const imdbResponse = await fetch(imdbUrl);
     const imdbData = await imdbResponse.json();
 
@@ -94,7 +94,7 @@ async function getMovieDetailsFromTMDb(tmdbId) {
 
 async function getMovieDetailsFromOMDb(imdbID, tmdbDetail) {
   try {
-    const omdbUrl = `/.netlify/functions/movie?imdbId=${imdbID}`;
+    const omdbUrl = `//api/movie?imdbId=${imdbID}`;
     const response = await fetch(omdbUrl);
     const data = await response.json();
 
