@@ -63,7 +63,8 @@ async function searchMovie() {
 }
 
 async function getMovieDetailsFromTMDb(tmdbId) {
-  const language = document.getElementById("language").value;
+  const languageSelect = document.getElementById("language");
+  const language = languageSelect ? languageSelect.value : "tr-TR";
 
   message.textContent = "Loading movie details...";
   loader.classList.remove("hidden");
