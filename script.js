@@ -25,8 +25,8 @@ async function searchMovie() {
   movieCard.classList.remove("hidden");
 
   try {
-const tmdbUrl = `/.netlify/functions/movie?query=${encodeURIComponent(movieName)}`;
-    const tmdbResponse = await fetch(tmdbUrl);
+    const language = document.getElementById("language").value;
+    const tmdbUrl = `/.netlify/functions/movie?query=${encodeURIComponent(movieName)}&lang=${language}`;    const tmdbResponse = await fetch(tmdbUrl);
     const tmdbData = await tmdbResponse.json();
 
     if (!tmdbData.results || tmdbData.results.length === 0) {
