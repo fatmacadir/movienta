@@ -262,8 +262,9 @@ button:hover {
 
   z-index: 0;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-auto-rows: 33.33vh;
+
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-auto-rows: 240px;
 
   gap: 0;
   padding: 0;
@@ -274,12 +275,10 @@ button:hover {
 .poster-wall img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  background: #050505;
-  border-radius: 0;
-  filter: brightness(0.48) contrast(1.05);
-  aspect-ratio: 2 / 3;
   object-fit: cover;
+  aspect-ratio: 2 / 3; 
+  border-radius: 0;
+  filter: brightness(0.5) contrast(1.05);
 }
 
 .dark-overlay {
