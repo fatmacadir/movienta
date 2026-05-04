@@ -1,12 +1,14 @@
 export default async function handler(request, response) {
-  const { query, tmdbId, tmdbDetailId, imdbId, similarId, lang } = request.query;
+  const { query, tmdbId, tmdbDetailId, imdbId, similarId, popular, lang } = request.query;
   const OMDB_KEY = process.env.OMDB_KEY;
   const TMDB_KEY = process.env.TMDB_KEY;
 
   try {
     let url = "";
 
-    if (query) {
+    if (popular) {
+      url = `https://api.themoviedb.org/3/movie/popular?api_key=${TMDB_KEY}&language=${lang || "tr-TR"}&page=1`;
+    } else if (query) {
       url = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query=${encodeURIComponent(query)}&language=${lang || "tr-TR"}`;
     } else if (tmdbId) {
       url = `https://api.themoviedb.org/3/movie/${tmdbId}/external_ids?api_key=${TMDB_KEY}`;
