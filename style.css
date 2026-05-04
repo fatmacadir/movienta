@@ -258,27 +258,27 @@ button:hover {
   z-index: 0;
 
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
-  grid-auto-rows: 170px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-auto-rows: 280px;
 
-  gap: 0;
-  padding: 0;
+  gap: 10px;
+  padding: 12px;
   overflow: hidden;
-  opacity: 0.72;
+  opacity: 0.65;
 }
 
 .poster-wall img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 0;
-  filter: brightness(0.75) contrast(1.1);
+  border-radius: 18px;
+  filter: brightness(0.68) contrast(1.08);
 }
 
 .dark-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.48);
+  background: rgba(0, 0, 0, 0.56);
   z-index: 1;
 }
 
