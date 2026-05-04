@@ -256,20 +256,23 @@ button:hover {
   position: fixed;
   inset: 0;
   z-index: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 22px;
-  padding: 25px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  grid-auto-rows: 180px;
+
+  gap: 0;              
+  padding: 0;          
   overflow: hidden;
-  opacity: 0.72;
+  opacity: 0.65;
 }
 
 .poster-wall img {
-  width: 115px;
-  height: 170px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border-radius: 14px;
-  filter: brightness(0.8) contrast(1.1);
+  border-radius: 0;    
+  filter: brightness(0.7);
 }
 
 .poster-wall img:nth-child(2n) {
