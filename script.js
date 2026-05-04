@@ -156,7 +156,7 @@ async function getMovieDetailsFromOMDb(imdbID, tmdbDetail, tmdbId) {
     loader.classList.add("hidden");
   }
 
-  async function loadPosterWall() {
+async function loadPosterWall() {
   try {
     const response = await fetch("/api/movie?popular=true&lang=tr-TR");
     const data = await response.json();
@@ -178,4 +178,3 @@ async function getMovieDetailsFromOMDb(imdbID, tmdbDetail, tmdbId) {
 }
 
 loadPosterWall();
-}
