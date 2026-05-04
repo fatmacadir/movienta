@@ -12,6 +12,8 @@ export default async function handler(request, response) {
       url = `https://api.themoviedb.org/3/movie/${tmdbId}/external_ids?api_key=${TMDB_KEY}`;
     } else if (tmdbDetailId) {
       url = `https://api.themoviedb.org/3/movie/${tmdbDetailId}?api_key=${TMDB_KEY}&language=${lang || "tr-TR"}`;
+    } else if (similarId) {
+      url = `https://api.themoviedb.org/3/movie/${similarId}/similar?api_key=${TMDB_KEY}&language=${lang || "tr-TR"}`;
     } else if (imdbId) {
       url = `https://www.omdbapi.com/?i=${imdbId}&plot=short&apikey=${OMDB_KEY}`;
     } else {
