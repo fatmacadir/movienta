@@ -278,6 +278,8 @@ button:hover {
   background: #050505;
   border-radius: 0;
   filter: brightness(0.48) contrast(1.05);
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
 }
 
 .dark-overlay {
@@ -304,3 +306,4 @@ button:hover {
     margin-bottom: 40px;
   }
 }
+
