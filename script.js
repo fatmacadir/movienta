@@ -181,7 +181,7 @@ function loadPosterWall() {
     return `<img src="https://image.tmdb.org/t/p/w300${path}" alt="Movie poster">`;
   }).join("");
 
-  document.getElementById("posterWall").innerHTML = posters;
+  document.getElementById("posterWall").innerHTML = posters + posters + posters + posters;
 }
 
 loadPosterWall();
