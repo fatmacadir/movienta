@@ -155,4 +155,27 @@ async function getMovieDetailsFromOMDb(imdbID, tmdbDetail, tmdbId) {
     message.textContent = "Could not load movie information.";
     loader.classList.add("hidden");
   }
+
+  async function loadPosterWall() {
+  try {
+    const response = await fetch("/api/movie?popular=true&lang=tr-TR");
+    const data = await response.json();
+
+    if (!data.results) return;
+
+    const posters = data.results
+      .filter(movie => movie.poster_path)
+      .slice(0, 20)
+      .map(movie => {
+        return `<img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">`;
+      })
+      .join("");
+
+    document.getElementById("posterWall").innerHTML = posters + posters + posters;
+  } catch (error) {
+    console.log("Poster background could not be loaded.");
+  }
+}
+
+loadPosterWall();
 }
