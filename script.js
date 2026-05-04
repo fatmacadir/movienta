@@ -11,8 +11,7 @@ movieInput.addEventListener("keydown", function (event) {
 
 async function searchMovie() {
   const movieName = movieInput.value.trim();
-  const languageSelect = document.getElementById("language");
-  const language = languageSelect ? languageSelect.value : "tr-TR";
+  const language = document.getElementById("language").value;
 
   if (movieName === "") {
     message.textContent = "Please enter a movie name.";
@@ -63,8 +62,7 @@ async function searchMovie() {
 }
 
 async function getMovieDetailsFromTMDb(tmdbId) {
-  const languageSelect = document.getElementById("language");
-  const language = languageSelect ? languageSelect.value : "tr-TR";
+  const language = document.getElementById("language").value;
 
   message.textContent = "Loading movie details...";
   loader.classList.remove("hidden");
@@ -85,7 +83,7 @@ async function getMovieDetailsFromTMDb(tmdbId) {
     }
 
     getMovieDetailsFromOMDb(imdbData.imdb_id, tmdbDetail, tmdbId);
-    
+
   } catch (error) {
     message.textContent = "Could not load movie details.";
     loader.classList.add("hidden");
@@ -94,24 +92,23 @@ async function getMovieDetailsFromTMDb(tmdbId) {
 
 async function getMovieDetailsFromOMDb(imdbID, tmdbDetail, tmdbId) {
   try {
-    const omdbUrl = `//api/movie?imdbId=${imdbID}`;
+    const omdbUrl = `/api/movie?imdbId=${imdbID}`;
     const response = await fetch(omdbUrl);
     const data = await response.json();
 
     const movieTitle = tmdbDetail.title || data.Title;
     const moviePlot = tmdbDetail.overview || data.Plot || "No description available.";
-
     const language = document.getElementById("language").value;
-    
+
     const similarResponse = await fetch(`/api/movie?similarId=${tmdbId}&lang=${language}`);
     const similarData = await similarResponse.json();
-    
+
     const similarMoviesHtml = similarData.results && similarData.results.length > 0
       ? similarData.results.slice(0, 5).map(movie => {
           const posterUrl = movie.poster_path
             ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
             : "https://via.placeholder.com/100x150?text=No+Poster";
-    
+
           return `
             <div class="similar-item" onclick="getMovieDetailsFromTMDb(${movie.id})">
               <img src="${posterUrl}" alt="${movie.title}">
@@ -121,10 +118,10 @@ async function getMovieDetailsFromOMDb(imdbID, tmdbDetail, tmdbId) {
         }).join("")
       : "<p>No similar movies found.</p>";
 
-   movieCard.innerHTML = `
+    movieCard.innerHTML = `
       <div class="detail-card">
         <img src="${data.Poster !== "N/A" ? data.Poster : "https://via.placeholder.com/220x330?text=No+Poster"}" alt="${movieTitle}">
-    
+
         <div class="movie-info">
           <h2>${movieTitle}</h2>
           <p><strong>Year:</strong> <span class="value">${data.Year}</span></p>
@@ -133,16 +130,15 @@ async function getMovieDetailsFromOMDb(imdbID, tmdbDetail, tmdbId) {
           <p><strong>Actors:</strong> <span class="value">${data.Actors}</span></p>
           <p><strong>IMDb Rating:</strong> <span class="value rating">${data.imdbRating}</span></p>
           <p>${moviePlot}</p>
-    
+
           <button onclick="searchMovie()">Back to Results</button>
-    
+
           <div class="similar-section">
             <h3>You may also like</h3>
             <div class="similar-list">
               ${similarMoviesHtml}
             </div>
           </div>
-    
         </div>
       </div>
     `;
@@ -155,6 +151,7 @@ async function getMovieDetailsFromOMDb(imdbID, tmdbDetail, tmdbId) {
     message.textContent = "Could not load movie information.";
     loader.classList.add("hidden");
   }
+}
 
 function loadPosterWall() {
   const posterPaths = [
