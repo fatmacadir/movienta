@@ -7,7 +7,8 @@ export default async function handler(request, response) {
     let url = "";
     
     if (popular) {
-      url = `https://api.themoviedb.org/3/movie/popular?api_key=${TMDB_KEY}&language=${lang || "tr-TR"}&page=${request.query.page || 1}`;
+      const page = request.query.page || 1;
+      url = `https://api.themoviedb.org/3/movie/popular?api_key=${TMDB_KEY}&language=${lang || "tr-TR"}&page=${page}`;
     } else if (query) {
       url = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query=${encodeURIComponent(query)}&language=${lang || "tr-TR"}`;
     } else if (tmdbId) {
