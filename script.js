@@ -158,25 +158,14 @@ async function getMovieDetailsFromOMDb(imdbID, tmdbDetail, tmdbId) {
 
 async function loadPosterWall() {
   try {
-    const pages = [1, 2, 3];
+    const response = await fetch("/api/movie?popular=true&lang=tr-TR&page=1");
+    const data = await response.json();
 
-    const responses = await Promise.all(
-      pages.map(page => fetch(`/api/movie?popular=true&lang=tr-TR&page=${page}`))
-    );
+    if (!data.results) return;
 
-    const dataList = await Promise.all(
-      responses.map(response => response.json())
-    );
-
-    const allMovies = dataList.flatMap(data => data.results || []);
-
-    const uniqueMovies = Array.from(
-      new Map(allMovies.map(movie => [movie.id, movie])).values()
-    );
-
-    const posters = uniqueMovies
+    const posters = data.results
       .filter(movie => movie.poster_path)
-      .slice(0, 45)
+      .slice(0, 20)
       .map(movie => {
         return `<img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">`;
       })
