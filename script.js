@@ -105,6 +105,7 @@ async function getMovieDetailsFromOMDb(imdbID, tmdbDetail, tmdbId) {
 
     const similarMoviesHtml = similarData.results && similarData.results.length > 0
       ? similarData.results.slice(0, 5).map(movie => {
+        if (!movie.poster_path) return;
           const posterUrl = movie.poster_path
             ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
             : "https://via.placeholder.com/100x150?text=No+Poster";
