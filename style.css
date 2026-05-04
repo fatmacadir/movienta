@@ -258,24 +258,39 @@ button:hover {
   z-index: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 18px;
+  gap: 22px;
   padding: 25px;
   overflow: hidden;
-  opacity: 0.65;
+  opacity: 0.72;
 }
 
 .poster-wall img {
-  width: 120px;
-  height: 180px;
+  width: 115px;
+  height: 170px;
   object-fit: cover;
   border-radius: 14px;
-  filter: brightness(0.75) contrast(1.15);
+  filter: brightness(0.8) contrast(1.1);
+}
+
+.poster-wall img:nth-child(2n) {
+  width: 145px;
+  height: 215px;
+}
+
+.poster-wall img:nth-child(3n) {
+  width: 95px;
+  height: 145px;
+}
+
+.poster-wall img:nth-child(5n) {
+  width: 165px;
+  height: 240px;
 }
 
 .dark-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.48);
   z-index: 1;
 }
 
