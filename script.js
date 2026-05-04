@@ -158,20 +158,31 @@ async function getMovieDetailsFromOMDb(imdbID, tmdbDetail, tmdbId) {
 
 async function loadPosterWall() {
   try {
-    const response = await fetch("/api/movie?popular=true&lang=tr-TR");
-    const data = await response.json();
+    const pages = [1, 2, 3];
 
-    if (!data.results) return;
+    const responses = await Promise.all(
+      pages.map(page => fetch(`/api/movie?popular=true&lang=tr-TR&page=${page}`))
+    );
 
-    const posters = data.results
+    const dataList = await Promise.all(
+      responses.map(response => response.json())
+    );
+
+    const allMovies = dataList.flatMap(data => data.results || []);
+
+    const uniqueMovies = Array.from(
+      new Map(allMovies.map(movie => [movie.id, movie])).values()
+    );
+
+    const posters = uniqueMovies
       .filter(movie => movie.poster_path)
-      .slice(0, 20)
+      .slice(0, 45)
       .map(movie => {
         return `<img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">`;
       })
       .join("");
 
-    document.getElementById("posterWall").innerHTML = posters + posters + posters;
+    document.getElementById("posterWall").innerHTML = posters;
   } catch (error) {
     console.log("Poster background could not be loaded.");
   }
