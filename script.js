@@ -84,15 +84,15 @@ async function getMovieDetailsFromTMDb(tmdbId) {
       return;
     }
 
-    getMovieDetailsFromOMDb(imdbData.imdb_id, tmdbDetail);
-
+    getMovieDetailsFromOMDb(imdbData.imdb_id, tmdbDetail, tmdbId);
+    
   } catch (error) {
     message.textContent = "Could not load movie details.";
     loader.classList.add("hidden");
   }
 }
 
-async function getMovieDetailsFromOMDb(imdbID, tmdbDetail) {
+async function getMovieDetailsFromOMDb(imdbID, tmdbDetail, tmdbId) {
   try {
     const omdbUrl = `//api/movie?imdbId=${imdbID}`;
     const response = await fetch(omdbUrl);
@@ -100,6 +100,26 @@ async function getMovieDetailsFromOMDb(imdbID, tmdbDetail) {
 
     const movieTitle = tmdbDetail.title || data.Title;
     const moviePlot = tmdbDetail.overview || data.Plot || "No description available.";
+
+    const language = document.getElementById("language").value;
+    
+    const similarResponse = await fetch(`/api/movie?similarId=${tmdbId}&lang=${language}`);
+    const similarData = await similarResponse.json();
+    
+    const similarMoviesHtml = similarData.results && similarData.results.length > 0
+      ? similarData.results.slice(0, 5).map(movie => {
+          const posterUrl = movie.poster_path
+            ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+            : "https://via.placeholder.com/100x150?text=No+Poster";
+    
+          return `
+            <div class="similar-item" onclick="getMovieDetailsFromTMDb(${movie.id})">
+              <img src="${posterUrl}" alt="${movie.title}">
+              <p>${movie.title}</p>
+            </div>
+          `;
+        }).join("")
+      : "<p>No similar movies found.</p>";
 
     movieCard.innerHTML = `
       <div class="detail-card">
@@ -115,6 +135,10 @@ async function getMovieDetailsFromOMDb(imdbID, tmdbDetail) {
           <p>${moviePlot}</p>
 
           <button onclick="searchMovie()">Back to Results</button>
+                <div class="similar-section">
+        <h3>You may also like</h3>
+        <div class="similar-list">
+          ${similarMoviesHtml}
         </div>
       </div>
     `;
