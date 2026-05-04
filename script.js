@@ -156,25 +156,35 @@ async function getMovieDetailsFromOMDb(imdbID, tmdbDetail, tmdbId) {
     loader.classList.add("hidden");
   }
 
-async function loadPosterWall() {
-  try {
-    const response = await fetch("/api/movie?popular=true&lang=tr-TR&page=1");
-    const data = await response.json();
+function loadPosterWall() {
+  const posterPaths = [
+    "/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg",
+    "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+    "/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+    "/9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg",
+    "/5VTN0pR8gcqV3EPUHHfMGnJYN9L.jpg",
+    "/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+    "/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+    "/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg",
+    "/y95lQLnuNKdPAzw9F9Ab8kJ80c3.jpg",
+    "/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg",
+    "/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg",
+    "/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg",
+    "/hziiv14OpD73u9gAak4XDDfBKa2.jpg",
+    "/vBZ0qvaRxqEhZwl6LWmruJqWE8Z.jpg",
+    "/2yYP0PQjG8zVqturh1BAqu2Tixl.jpg",
+    "/c24sv2weTHPsmDa7jEMN0m2P3RT.jpg",
+    "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
+    "/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg",
+    "/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg",
+    "/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg"
+  ];
 
-    if (!data.results) return;
+  const posters = posterPaths.map(path => {
+    return `<img src="https://image.tmdb.org/t/p/w300${path}" alt="Movie poster">`;
+  }).join("");
 
-    const posters = data.results
-      .filter(movie => movie.poster_path)
-      .slice(0, 20)
-      .map(movie => {
-        return `<img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">`;
-      })
-      .join("");
-
-    document.getElementById("posterWall").innerHTML = posters;
-  } catch (error) {
-    console.log("Poster background could not be loaded.");
-  }
+  document.getElementById("posterWall").innerHTML = posters;
 }
 
 loadPosterWall();
