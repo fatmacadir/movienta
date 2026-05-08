@@ -28,6 +28,10 @@ The project was designed with a responsive layout to provide a smooth experience
 * User-friendly interface
 * API integration
 
+## Live Demo
+
+https://movienta-kappa.vercel.app/
+
 ## Developer
 
 Fatma Çadır
