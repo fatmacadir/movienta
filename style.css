@@ -306,3 +306,8 @@ button:hover {
   }
 }
 
+.detail-card > img {
+  align-self: flex-start;
+  max-height: 380px;
+  object-fit: cover;
+}
