@@ -119,30 +119,30 @@ async function getMovieDetailsFromOMDb(imdbID, tmdbDetail, tmdbId) {
         }).join("")
       : "<p>No similar movies found.</p>";
 
-    movieCard.innerHTML = `
-      <div class="detail-card">
-        <img src="${data.Poster !== "N/A" ? data.Poster : "https://via.placeholder.com/220x330?text=No+Poster"}" alt="${movieTitle}">
+      movieCard.innerHTML = `
+  <div class="detail-card">
+    <img src="${data.Poster !== "N/A" ? data.Poster : "https://via.placeholder.com/220x330?text=No+Poster"}" alt="${movieTitle}">
 
-        <div class="movie-info">
-          <h2>${movieTitle}</h2>
-          <p><strong>Year:</strong> <span class="value">${data.Year}</span></p>
-          <p><strong>Genre:</strong> <span class="value">${data.Genre}</span></p>
-          <p><strong>Director:</strong> <span class="value">${data.Director}</span></p>
-          <p><strong>Actors:</strong> <span class="value">${data.Actors}</span></p>
-          <p><strong>IMDb Rating:</strong> <span class="value rating">${data.imdbRating}</span></p>
-          <p>${moviePlot}</p>
+    <div class="movie-info">
+      <h2>${movieTitle}</h2>
+      <p><strong>Year:</strong> <span class="value">${data.Year}</span></p>
+      <p><strong>Genre:</strong> <span class="value">${data.Genre}</span></p>
+      <p><strong>Director:</strong> <span class="value">${data.Director}</span></p>
+      <p><strong>Actors:</strong> <span class="value">${data.Actors}</span></p>
+      <p><strong>IMDb Rating:</strong> <span class="value rating">${data.imdbRating}</span></p>
+      <p>${moviePlot}</p>
 
-          <button onclick="searchMovie()">Back to Results</button>
+      <button onclick="searchMovie()">Back to Results</button>
+    </div>
+  </div>
 
-          <div class="similar-section">
-            <h3>You may also like</h3>
-            <div class="similar-list">
-              ${similarMoviesHtml}
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
+  <div class="similar-section">
+    <h3>You may also like</h3>
+    <div class="similar-list">
+      ${similarMoviesHtml}
+    </div>
+  </div>
+`;
 
     movieCard.classList.remove("hidden");
     message.textContent = "";
