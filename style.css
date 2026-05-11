@@ -212,6 +212,8 @@ button:hover {
 
 .similar-section {
   margin-top: 30px;
+  grid-column: 1 / -1;
+  width: 100%;
 }
 
 .similar-section h3 {
@@ -222,19 +224,14 @@ button:hover {
 
 .similar-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 18px;
   width: 100%;
 }
 
 .similar-item {
-  background: rgba(255, 255, 255, 0.09);
-  padding: 12px;
-  border-radius: 16px;
-  text-align: center;
-  cursor: pointer;
-  transition: 0.25s ease;
   width: 100%;
+  min-width: 0;
 }
 
 .similar-item:hover {
@@ -312,4 +309,10 @@ button:hover {
   align-self: flex-start;
   max-height: 380px;
   object-fit: cover;
+}
+
+@media (max-width: 700px) {
+  .similar-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
