@@ -123,13 +123,16 @@ button:hover {
 
 .movie-card {
   margin-top: 25px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 18px;
   background: rgba(5, 5, 8, 0.94);
   padding: 25px;
   border-radius: 22px;
   animation: fadeIn 0.4s ease;
+}
+
+.movie-card:not(.hidden) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
 }
 
 .result-item {
