@@ -222,8 +222,9 @@ button:hover {
 
 .similar-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 18px;
+  width: 100%;
 }
 
 .similar-item {
@@ -233,6 +234,7 @@ button:hover {
   text-align: center;
   cursor: pointer;
   transition: 0.25s ease;
+  width: 100%;
 }
 
 .similar-item:hover {
