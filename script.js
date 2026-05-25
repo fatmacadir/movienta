@@ -1,159 +1,3 @@
-const loader = document.getElementById("loader");
-const movieInput = document.getElementById("movieInput");
-const message = document.getElementById("message");
-const movieCard = document.getElementById("movieCard");
-
-movieInput.addEventListener("keydown", function (event) {
-  if (event.key === "Enter") {
-    searchMovie();
-  }
-});
-
-async function searchMovie() {
-  const movieName = movieInput.value.trim();
-  const language = document.getElementById("language").value;
-
-  if (movieName === "") {
-    message.textContent = "Please enter a movie name.";
-    movieCard.classList.add("hidden");
-    return;
-  }
-
-  message.textContent = "Searching...";
-  loader.classList.remove("hidden");
-  movieCard.classList.add("hidden");
-
-  try {
-    const tmdbUrl = `/api/movie?query=${encodeURIComponent(movieName)}&lang=${language}`;
-    const tmdbResponse = await fetch(tmdbUrl);
-    const tmdbData = await tmdbResponse.json();
-
-    if (!tmdbData.results || tmdbData.results.length === 0) {
-      message.textContent = "Movie not found. Please try another title.";
-      loader.classList.add("hidden");
-      return;
-    }
-
-    const resultsHtml = tmdbData.results.slice(0, 10).map(movie => {
-      const posterUrl = movie.poster_path
-        ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
-        : "https://via.placeholder.com/100x150?text=No+Poster";
-
-      return `
-        <div class="result-item" onclick="getMovieDetailsFromTMDb(${movie.id})">
-          <img src="${posterUrl}" alt="${movie.title}">
-          <div>
-            <h3>${movie.title}</h3>
-            <p>${movie.release_date ? movie.release_date.slice(0, 4) : "Unknown year"}</p>
-          </div>
-        </div>
-      `;
-    }).join("");
-
-    movieCard.innerHTML = resultsHtml;
-    movieCard.classList.remove("hidden");
-    message.textContent = `${tmdbData.results.length} result(s) found.`;
-    loader.classList.add("hidden");
-
-  } catch (error) {
-    message.textContent = "Something went wrong. Please try again.";
-    loader.classList.add("hidden");
-  }
-}
-
-async function getMovieDetailsFromTMDb(tmdbId) {
-  const language = document.getElementById("language").value;
-
-  message.textContent = "Loading movie details...";
-  loader.classList.remove("hidden");
-
-  try {
-    const detailUrl = `/api/movie?tmdbDetailId=${tmdbId}&lang=${language}`;
-    const detailResponse = await fetch(detailUrl);
-    const tmdbDetail = await detailResponse.json();
-
-    const imdbUrl = `/api/movie?tmdbId=${tmdbId}`;
-    const imdbResponse = await fetch(imdbUrl);
-    const imdbData = await imdbResponse.json();
-
-    if (!imdbData.imdb_id) {
-      message.textContent = "IMDb information could not be found.";
-      loader.classList.add("hidden");
-      return;
-    }
-
-    getMovieDetailsFromOMDb(imdbData.imdb_id, tmdbDetail, tmdbId);
-
-  } catch (error) {
-    message.textContent = "Could not load movie details.";
-    loader.classList.add("hidden");
-  }
-}
-
-async function getMovieDetailsFromOMDb(imdbID, tmdbDetail, tmdbId) {
-  try {
-    const omdbUrl = `/api/movie?imdbId=${imdbID}`;
-    const response = await fetch(omdbUrl);
-    const data = await response.json();
-
-    const movieTitle = tmdbDetail.title || data.Title;
-    const moviePlot = tmdbDetail.overview || data.Plot || "No description available.";
-    const language = document.getElementById("language").value;
-
-    const similarResponse = await fetch(`/api/movie?similarId=${tmdbId}&lang=${language}`);
-    const similarData = await similarResponse.json();
-
-    const similarMoviesHtml = similarData.results && similarData.results.length > 0
-      ? similarData.results.slice(0, 5).map(movie => {
-        if (!movie.poster_path) return;
-          const posterUrl = movie.poster_path
-            ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
-            : "https://via.placeholder.com/100x150?text=No+Poster";
-
-          return `
-            <div class="similar-item" onclick="getMovieDetailsFromTMDb(${movie.id})">
-              <img src="${posterUrl}" alt="${movie.title}">
-              <p>${movie.title}</p>
-            </div>
-          `;
-        }).join("")
-      : "<p>No similar movies found.</p>";
-
-      movieCard.innerHTML = `
-  <div class="detail-card">
-    <img src="${data.Poster !== "N/A" ? data.Poster : "https://via.placeholder.com/220x330?text=No+Poster"}" alt="${movieTitle}">
-
-    <div class="movie-info">
-      <h2>${movieTitle}</h2>
-      <p><strong>Year:</strong> <span class="value">${data.Year}</span></p>
-      <p><strong>Genre:</strong> <span class="value">${data.Genre}</span></p>
-      <p><strong>Director:</strong> <span class="value">${data.Director}</span></p>
-      <p><strong>Actors:</strong> <span class="value">${data.Actors}</span></p>
-      <p><strong>IMDb Rating:</strong> <span class="value rating">${data.imdbRating}</span></p>
-      <p>${moviePlot}</p>
-
-      <button onclick="searchMovie()">Back to Results</button>
-    </div>
-  </div>
-
-  <div class="similar-section">
-    <h3>You may also like</h3>
-    <div class="similar-list">
-      ${similarMoviesHtml}
-    </div>
-  </div>
-`;
-
-    movieCard.classList.remove("hidden");
-    message.textContent = "";
-    loader.classList.add("hidden");
-
-  } catch (error) {
-    message.textContent = "Could not load movie information.";
-    loader.classList.add("hidden");
-  }
-}
-
 function loadPosterWall() {
   const posterPaths = [
     "/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg",
@@ -178,109 +22,191 @@ function loadPosterWall() {
     "/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg"
   ];
 
-  const posters = posterPaths.map(path => {
-    return `<img src="https://image.tmdb.org/t/p/w300${path}" alt="Movie poster">`;
-  }).join("");
+  const posterWall = document.getElementById("posterWall");
 
-  document.getElementById("posterWall").innerHTML = posters + posters + posters;
+  const repeatedPosters = [...posterPaths, ...posterPaths];
+
+  posterWall.innerHTML = repeatedPosters.map(path => `
+    <img src="https://image.tmdb.org/t/p/w300${path}" alt="Movie Poster">
+  `).join("");
 }
 
-loadPosterWall();
+const loader = document.getElementById("loader");
+const movieInput = document.getElementById("movieInput");
+const message = document.getElementById("message");
+const movieCard = document.getElementById("movieCard");
+const sectionTitle = document.getElementById("sectionTitle");
+
+movieInput.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    searchMovie();
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  loadPopularMovies();
+});
+
+function getLanguage() {
+  const languageSelect = document.getElementById("language");
+  return languageSelect ? languageSelect.value : "tr-TR";
+}
+
+function showLoader(text) {
+  message.textContent = text;
+  loader.classList.remove("hidden");
+}
+
+function hideLoader() {
+  loader.classList.add("hidden");
+}
+
+function getPoster(path) {
+  return path
+    ? `https://image.tmdb.org/t/p/w300${path}`
+    : "https://via.placeholder.com/300x450?text=No+Poster";
+}
 
 async function loadPopularMovies() {
-  message.textContent = "Popular movies loading...";
-  loader.classList.remove("hidden");
+  sectionTitle.textContent = "Popüler Filmler";
+  showLoader("Popüler filmler yükleniyor...");
 
   try {
-    const response = await fetch(`/api/movie?popular=true`);
+    const response = await fetch(`/api/movie?popular=true&lang=${getLanguage()}`);
     const data = await response.json();
 
-    displayMovieList(data.results);
-
+    displayMovieList(data.results || []);
+    message.textContent = "";
   } catch (error) {
-    message.textContent = "Popular movies could not be loaded.";
+    message.textContent = "Popüler filmler yüklenemedi.";
+  } finally {
+    hideLoader();
   }
-
-  loader.classList.add("hidden");
 }
 
-async function loadMoviesByGenre(genreId) {
-  message.textContent = "Movies loading...";
-  loader.classList.remove("hidden");
+async function loadMoviesByGenre(genreId, genreName) {
+  sectionTitle.textContent = `${genreName} Filmleri`;
+  showLoader(`${genreName} filmleri yükleniyor...`);
 
   try {
-    const response = await fetch(`/api/movie?genreId=${genreId}`);
+    const response = await fetch(`/api/movie?genreId=${genreId}&lang=${getLanguage()}`);
     const data = await response.json();
 
-    displayMovieList(data.results);
-
+    displayMovieList(data.results || []);
+    message.textContent = "";
   } catch (error) {
-    message.textContent = "Movies could not be loaded.";
-  }
-
-  loader.classList.add("hidden");
-}
-
-function displayMovieList(movies) {
-  movieCard.innerHTML = movies.slice(0, 12).map(movie => {
-    const posterUrl = movie.poster_path
-      ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
-      : "https://via.placeholder.com/100x150?text=No+Poster";
-
-    return `
-      <div class="result-item">
-        <img src="${posterUrl}" alt="${movie.title}">
-
-        <div>
-          <h3>${movie.title}</h3>
-
-          <p>
-            ${movie.release_date
-              ? movie.release_date.slice(0,4)
-              : "Unknown year"}
-          </p>
-
-          <button onclick="addToFavorites(${movie.id}, '${movie.title.replace(/'/g, "")}')">
-            Favorilere Ekle
-          </button>
-        </div>
-      </div>
-    `;
-  }).join("");
-
-  movieCard.classList.remove("hidden");
-}
-
-function addToFavorites(id, title) {
-  let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
-  const exists = favorites.find(movie => movie.id === id);
-
-  if (!exists) {
-    favorites.push({ id, title });
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-
-    message.textContent = `${title} favorilere eklendi.`;
-  } else {
-    message.textContent = `${title} zaten favorilerde.`;
+    message.textContent = "Kategori filmleri yüklenemedi.";
+  } finally {
+    hideLoader();
   }
 }
 
-function showFavorites() {
-  let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+async function searchMovie() {
+  const movieName = movieInput.value.trim();
 
-  if (favorites.length === 0) {
-    message.textContent = "No favorite movies yet.";
+  if (movieName === "") {
+    message.textContent = "Lütfen bir film adı gir.";
     return;
   }
 
-  movieCard.innerHTML = favorites.map(movie => `
-    <div class="result-item">
-      <div>
-        <h3>${movie.title}</h3>
-      </div>
+  sectionTitle.textContent = "Arama Sonuçları";
+  showLoader("Film aranıyor...");
+
+  try {
+    const response = await fetch(`/api/movie?query=${encodeURIComponent(movieName)}&lang=${getLanguage()}`);
+    const data = await response.json();
+
+    if (!data.results || data.results.length === 0) {
+      movieCard.innerHTML = "";
+      message.textContent = "Film bulunamadı. Başka bir isim dene.";
+      return;
+    }
+
+    displayMovieList(data.results);
+    message.textContent = `${data.results.length} sonuç bulundu.`;
+  } catch (error) {
+    message.textContent = "Bir hata oluştu. Lütfen tekrar dene.";
+  } finally {
+    hideLoader();
+  }
+}
+
+function displayMovieList(movies) {
+  movieCard.innerHTML = movies.slice(0, 12).map(movie => `
+    <div class="result-item" onclick="showMovieDetail(${movie.id})">
+      <img src="${getPoster(movie.poster_path)}" alt="${movie.title}">
+      <h3>${movie.title}</h3>
+      <p>${movie.release_date ? movie.release_date.slice(0, 4) : "Yıl bilinmiyor"}</p>
     </div>
   `).join("");
 
   movieCard.classList.remove("hidden");
+}
+
+async function showMovieDetail(tmdbId) {
+  sectionTitle.textContent = "Film Detayı";
+  showLoader("Film detayı yükleniyor...");
+
+  try {
+    const detailResponse = await fetch(`/api/movie?tmdbDetailId=${tmdbId}&lang=${getLanguage()}`);
+    const movie = await detailResponse.json();
+
+    movieCard.innerHTML = `
+      <div class="detail-card">
+        <img src="${getPoster(movie.poster_path)}" alt="${movie.title}">
+
+        <div class="movie-info">
+          <h2>${movie.title}</h2>
+          <p><strong>Yıl:</strong> ${movie.release_date ? movie.release_date.slice(0, 4) : "Bilinmiyor"}</p>
+          <p><strong>Puan:</strong> ⭐ ${movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}</p>
+          <p><strong>Süre:</strong> ${movie.runtime ? movie.runtime + " dakika" : "Bilinmiyor"}</p>
+          <p><strong>Açıklama:</strong> ${movie.overview || "Açıklama bulunamadı."}</p>
+
+          <button onclick="addToFavorites(${movie.id}, '${movie.title.replace(/'/g, "")}', '${movie.poster_path || ""}')">
+            Favorilere Ekle
+          </button>
+
+          <button onclick="loadPopularMovies()">Ana Sayfaya Dön</button>
+        </div>
+      </div>
+    `;
+
+    message.textContent = "";
+  } catch (error) {
+    message.textContent = "Film detayı yüklenemedi.";
+  } finally {
+    hideLoader();
+  }
+}
+
+function addToFavorites(id, title, posterPath) {
+  let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+  const exists = favorites.some(movie => movie.id === id);
+
+  if (!exists) {
+    favorites.push({ id, title, poster_path: posterPath });
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    message.textContent = "Film favorilere eklendi.";
+  } else {
+    message.textContent = "Bu film zaten favorilerde.";
+  }
+}
+
+function showFavorites() {
+  sectionTitle.textContent = "Favorilerim";
+
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+  if (favorites.length === 0) {
+    movieCard.innerHTML = "";
+    message.textContent = "Henüz favori film eklenmedi.";
+    return;
+  }
+
+  displayMovieList(favorites);
+  message.textContent = "";
+}
+
+function loadPosterWall() {
 }
