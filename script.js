@@ -186,3 +186,101 @@ function loadPosterWall() {
 }
 
 loadPosterWall();
+
+async function loadPopularMovies() {
+  message.textContent = "Popular movies loading...";
+  loader.classList.remove("hidden");
+
+  try {
+    const response = await fetch(`/api/movie?popular=true`);
+    const data = await response.json();
+
+    displayMovieList(data.results);
+
+  } catch (error) {
+    message.textContent = "Popular movies could not be loaded.";
+  }
+
+  loader.classList.add("hidden");
+}
+
+async function loadMoviesByGenre(genreId) {
+  message.textContent = "Movies loading...";
+  loader.classList.remove("hidden");
+
+  try {
+    const response = await fetch(`/api/movie?genreId=${genreId}`);
+    const data = await response.json();
+
+    displayMovieList(data.results);
+
+  } catch (error) {
+    message.textContent = "Movies could not be loaded.";
+  }
+
+  loader.classList.add("hidden");
+}
+
+function displayMovieList(movies) {
+  movieCard.innerHTML = movies.slice(0, 12).map(movie => {
+    const posterUrl = movie.poster_path
+      ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+      : "https://via.placeholder.com/100x150?text=No+Poster";
+
+    return `
+      <div class="result-item">
+        <img src="${posterUrl}" alt="${movie.title}">
+
+        <div>
+          <h3>${movie.title}</h3>
+
+          <p>
+            ${movie.release_date
+              ? movie.release_date.slice(0,4)
+              : "Unknown year"}
+          </p>
+
+          <button onclick="addToFavorites(${movie.id}, '${movie.title.replace(/'/g, "")}')">
+            Favorilere Ekle
+          </button>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  movieCard.classList.remove("hidden");
+}
+
+function addToFavorites(id, title) {
+  let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+  const exists = favorites.find(movie => movie.id === id);
+
+  if (!exists) {
+    favorites.push({ id, title });
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+
+    message.textContent = `${title} favorilere eklendi.`;
+  } else {
+    message.textContent = `${title} zaten favorilerde.`;
+  }
+}
+
+function showFavorites() {
+  let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+  if (favorites.length === 0) {
+    message.textContent = "No favorite movies yet.";
+    return;
+  }
+
+  movieCard.innerHTML = favorites.map(movie => `
+    <div class="result-item">
+      <div>
+        <h3>${movie.title}</h3>
+      </div>
+    </div>
+  `).join("");
+
+  movieCard.classList.remove("hidden");
+}
