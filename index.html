@@ -7,6 +7,32 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+  <header class="navbar">
+  <div class="logo">Movienta</div>
+
+  <nav>
+    <a href="#">Ana Sayfa</a>
+
+    <div class="dropdown">
+      <button class="dropdown-btn">Kategoriler</button>
+
+      <div class="dropdown-menu">
+        <button onclick="loadMoviesByGenre(28)">Aksiyon</button>
+        <button onclick="loadMoviesByGenre(35)">Komedi</button>
+        <button onclick="loadMoviesByGenre(18)">Dram</button>
+        <button onclick="loadMoviesByGenre(27)">Korku</button>
+        <button onclick="loadMoviesByGenre(10749)">Romantik</button>
+        <button onclick="loadMoviesByGenre(878)">Bilim Kurgu</button>
+      </div>
+    </div>
+
+    <a href="#" onclick="loadPopularMovies()">Popüler Filmler</a>
+    <a href="#" onclick="showFavorites()">Favoriler</a>
+    <a href="#about">Hakkında</a>
+  </nav>
+</header>
+  
   <div id="posterWall" class="poster-wall"></div>
   <div class="dark-overlay"></div>
 
