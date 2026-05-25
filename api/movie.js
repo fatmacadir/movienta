@@ -9,7 +9,9 @@ export default async function handler(request, response) {
     if (popular) {
       const page = request.query.page || 1;
       url = `https://api.themoviedb.org/3/movie/popular?api_key=${TMDB_KEY}&language=${lang || "tr-TR"}&page=${page}`;
-    } else if (query) {
+    }else if (genreId) {
+      url = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_KEY}&with_genres=${genreId}`;   
+    }else if (query) {
       url = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query=${encodeURIComponent(query)}&language=${lang || "tr-TR"}`;
     } else if (tmdbId) {
       url = `https://api.themoviedb.org/3/movie/${tmdbId}/external_ids?api_key=${TMDB_KEY}`;
@@ -31,3 +33,4 @@ export default async function handler(request, response) {
     return response.status(500).json({ error: "Server error" });
   }
 }
+
