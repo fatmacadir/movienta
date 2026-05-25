@@ -1,73 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OMDB Movie Search</title>
+  <title>Movienta</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <header class="navbar">
-  <div class="logo">Movienta</div>
+    <div class="logo">Movienta</div>
 
-  <nav>
-    <a href="#">Ana Sayfa</a>
+    <nav>
+      <a href="#" class="active" onclick="loadPopularMovies()">Ana Sayfa</a>
 
-    <div class="dropdown">
-      <button class="dropdown-btn">Kategoriler</button>
-
-      <div class="dropdown-menu">
-        <button onclick="loadMoviesByGenre(28)">Aksiyon</button>
-        <button onclick="loadMoviesByGenre(35)">Komedi</button>
-        <button onclick="loadMoviesByGenre(18)">Dram</button>
-        <button onclick="loadMoviesByGenre(27)">Korku</button>
-        <button onclick="loadMoviesByGenre(10749)">Romantik</button>
-        <button onclick="loadMoviesByGenre(878)">Bilim Kurgu</button>
+      <div class="dropdown">
+        <button class="dropdown-btn">Kategoriler ▾</button>
+        <div class="dropdown-menu">
+          <button onclick="loadMoviesByGenre(28, 'Aksiyon')">Aksiyon</button>
+          <button onclick="loadMoviesByGenre(35, 'Komedi')">Komedi</button>
+          <button onclick="loadMoviesByGenre(18, 'Dram')">Dram</button>
+          <button onclick="loadMoviesByGenre(27, 'Korku')">Korku</button>
+          <button onclick="loadMoviesByGenre(10749, 'Romantik')">Romantik</button>
+          <button onclick="loadMoviesByGenre(878, 'Bilim Kurgu')">Bilim Kurgu</button>
+        </div>
       </div>
-    </div>
 
-    <a href="#" onclick="loadPopularMovies()">Popüler Filmler</a>
-    <a href="#" onclick="showFavorites()">Favoriler</a>
-    <a href="#about">Hakkında</a>
-  </nav>
-</header>
-  
-  <div id="posterWall" class="poster-wall"></div>
-  <div class="dark-overlay"></div>
+      <a href="#" onclick="showFavorites()">Favoriler</a>
+      <a href="#about">Hakkında</a>
+    </nav>
+  </header>
 
-  <div class="app">
-    <h1>Movienta</h1>
-    <p class="subtitle">Search for a movie and see its basic information.</p>
+  <section class="hero">
+    <div class="hero-overlay"></div>
 
-    <div class="search-box">
-      <input type="text" id="movieInput" placeholder="Enter a movie name..." />
+    <div class="hero-content">
+      <h1>Movienta</h1>
+      <p>Search for a movie and see its basic information.</p>
 
-      <select id="language">
-        <option value="tr-TR">Türkçe</option>
-        <option value="en-US">English</option>
-        <option value="de-DE">Deutsch</option>
-        <option value="es-ES">Español</option>
-      </select>
-     
-      <button onclick="searchMovie()">Search</button>
-    </div>
+      <div class="search-box">
+        <input type="text" id="movieInput" placeholder="Enter a movie name..." />
 
-    <p id="message"></p>
-    <div id="loader" class="loader hidden"></div>
-    <div id="movieCard" class="movie-card hidden">
-      <img id="poster" src="" alt="Movie Poster" />
+        <select id="language">
+          <option value="tr-TR">Türkçe</option>
+          <option value="en-US">English</option>
+          <option value="de-DE">Deutsch</option>
+          <option value="es-ES">Español</option>
+        </select>
 
-      <div class="movie-info">
-        <h2 id="title"></h2>
-        <p><strong>Year:</strong> <span id="year"></span></p>
-        <p><strong>Genre:</strong> <span id="genre"></span></p>
-        <p><strong>Director:</strong> <span id="director"></span></p>
-        <p><strong>IMDb Rating:</strong> <span id="rating"></span></p>
-        <p id="plot"></p>
+        <button onclick="searchMovie()">Search</button>
       </div>
+
+      <p id="message"></p>
+      <div id="loader" class="loader hidden"></div>
     </div>
-  </div>
+  </section>
+
+  <main class="main-content">
+    <section class="movies-section">
+      <h2 id="sectionTitle">Popüler Filmler</h2>
+      <div id="movieCard" class="movie-card"></div>
+    </section>
+
+    <section id="about" class="about">
+      <h2>Hakkında</h2>
+      <p>
+        Movienta, kullanıcıların film araması yapabildiği, popüler filmleri inceleyebildiği
+        ve favori filmlerini kaydedebildiği bir film keşif platformudur.
+      </p>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
