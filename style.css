@@ -301,3 +301,81 @@ button:hover {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 18px 40px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 999;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+nav a,
+.dropdown-btn {
+  color: white;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+nav a:hover,
+.dropdown-btn:hover {
+  color: #ff4c60;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 35px;
+  left: 0;
+  background: #1f1f35;
+  border-radius: 10px;
+  padding: 10px;
+  display: none;
+  flex-direction: column;
+  min-width: 160px;
+}
+
+.dropdown-menu button {
+  background: none;
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.dropdown-menu button:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.dropdown:hover .dropdown-menu {
+  display: flex;
+}
+
+body {
+  padding-top: 90px;
+}
