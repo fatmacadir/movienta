@@ -171,8 +171,6 @@ async function showMovieDetail(tmdbId) {
           <button onclick="addToFavorites(${movie.id}, '${movie.title.replace(/'/g, "")}', '${movie.poster_path || ""}')">
             Favorilere Ekle
           </button>
-
-          <button onclick="loadPopularMovies()">Ana Sayfaya Dön</button>
         </div>
       </div>
     `;
