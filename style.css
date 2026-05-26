@@ -35,7 +35,7 @@ body {
 .dark-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(8, 8, 20, 0.82);
+  background: rgba(8, 8, 20, 0.55);
   z-index: -2;
 }
 
@@ -134,10 +134,10 @@ nav a.active {
   min-height: 500px;
   padding-top: 85px;
   background:
-  linear-gradient(rgba(5, 5, 15, 0.58), rgba(5, 5, 15, 0.72)),
-  url("https://image.tmdb.org/t/p/original/8bcoRX3hQRHufLPSDREdvr3YMXx.jpg");
+    linear-gradient(rgba(5, 5, 15, 0.25), rgba(5, 5, 15, 0.45)),
+    url("https://image.tmdb.org/t/p/original/8bcoRX3hQRHufLPSDREdvr3YMXx.jpg");
   background-size: cover;
-  background-position: center;
+  background-position: center 35%;
   display: flex;
   align-items: center;
   justify-content: center;
