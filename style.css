@@ -4,7 +4,7 @@
 
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
   background: linear-gradient(135deg, #151525, #252544);
   color: white;
   min-height: 100vh;
@@ -60,7 +60,7 @@ body {
 .logo {
   font-size: 28px;
   font-weight: bold;
-  color: #ff4c60;
+  color: #b2071b;
   margin-right: 220px;
 }
 
@@ -87,11 +87,11 @@ nav a,
 nav a:hover,
 .dropdown-btn:hover {
   color: white;
-  background: #ff4c60;
+  background: #b2071b;
 }
 
 nav a.active {
-  background: linear-gradient(135deg, #ff4c60, #b91f38);
+  background: linear-gradient(135deg, #b2071b, #b91f38);
   color: white;
 }
 
@@ -237,7 +237,7 @@ button:hover {
   content: "";
   width: 55px;
   height: 4px;
-  background: #ff4c60;
+  background: #b2071b;
   position: absolute;
   left: 0;
   bottom: -12px;
@@ -317,7 +317,7 @@ button:hover {
 /* LOADER */
 .loader {
   border: 6px solid rgba(255, 255, 255, 0.2);
-  border-top: 6px solid #ff4c60;
+  border-top: 6px solid #b2071b;
   border-radius: 50%;
   width: 50px;
   height: 50px;
