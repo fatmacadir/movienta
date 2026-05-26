@@ -123,8 +123,13 @@ async function searchMovie() {
       return;
     }
 
-    displayMovieList(data.results);
-    message.textContent = `${data.results.length} sonuç bulundu.`;
+   displayMovieList(data.results);
+
+  message.textContent = `${data.results.length} sonuç bulundu.`;
+
+  document.querySelector(".movies-section").scrollIntoView({
+  behavior: "smooth"
+  });
   } catch (error) {
     message.textContent = "Bir hata oluştu. Lütfen tekrar dene.";
   } finally {
