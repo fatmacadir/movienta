@@ -219,15 +219,20 @@ async function loadUpcomingMovies() {
 
     const upcomingContainer = document.getElementById("upcomingMovies");
 
+    if (!data.results || data.results.length === 0) {
+      upcomingContainer.innerHTML = "<p>Yakında çıkacak film bulunamadı.</p>";
+      return;
+    }
+
     upcomingContainer.innerHTML = data.results.slice(0, 6).map(movie => `
       <div class="result-item" onclick="showMovieDetail(${movie.id})">
         <img src="${getPoster(movie.poster_path)}" alt="${movie.title}">
         <h3>${movie.title}</h3>
-        <p>${movie.release_date ? movie.release_date.slice(0, 4) : "Coming Soon"}</p>
+        <p>${movie.release_date ? movie.release_date.slice(0, 4) : "Yakında"}</p>
       </div>
     `).join("");
 
   } catch (error) {
-    console.log("Upcoming movies could not load.");
+    console.log("Upcoming movies could not load.", error);
   }
 }
