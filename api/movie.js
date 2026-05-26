@@ -1,5 +1,5 @@
 export default async function handler(request, response) {
-  const { query, tmdbId, tmdbDetailId, imdbId, similarId, popular, lang } = request.query;
+  const { query, tmdbId, tmdbDetailId, imdbId, lang, popular, genreId, upcoming } = request.query;
   const OMDB_KEY = process.env.OMDB_KEY;
   const TMDB_KEY = process.env.TMDB_KEY;
 
