@@ -171,6 +171,9 @@ async function showMovieDetail(tmdbId) {
           <button onclick="addToFavorites(${movie.id}, '${movie.title.replace(/'/g, "")}', '${movie.poster_path || ""}')">
             Favorilere Ekle
           </button>
+          <button onclick="goBackToResults()">
+            Sonuçlara Dön
+          </button>
         </div>
       </div>
     `;
@@ -238,4 +241,10 @@ async function loadUpcomingMovies() {
   } catch (error) {
     console.log("Upcoming movies could not load.", error);
   }
+}
+
+function goBackToResults() {
+  document.querySelector(".movies-section").scrollIntoView({
+    behavior: "smooth"
+  });
 }
