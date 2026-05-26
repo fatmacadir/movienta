@@ -45,6 +45,7 @@ movieInput.addEventListener("keydown", function (event) {
 
 document.addEventListener("DOMContentLoaded", function () {
   loadPopularMovies();
+  loadUpcomingMovies();
 });
 
 function getLanguage() {
@@ -209,4 +210,24 @@ function showFavorites() {
 }
 
 function loadPosterWall() {
+}
+
+async function loadUpcomingMovies() {
+  try {
+    const response = await fetch(`/api/movie?upcoming=true&lang=${getLanguage()}`);
+    const data = await response.json();
+
+    const upcomingContainer = document.getElementById("upcomingMovies");
+
+    upcomingContainer.innerHTML = data.results.slice(0, 6).map(movie => `
+      <div class="result-item" onclick="showMovieDetail(${movie.id})">
+        <img src="${getPoster(movie.poster_path)}" alt="${movie.title}">
+        <h3>${movie.title}</h3>
+        <p>${movie.release_date ? movie.release_date.slice(0, 4) : "Coming Soon"}</p>
+      </div>
+    `).join("");
+
+  } catch (error) {
+    console.log("Upcoming movies could not load.");
+  }
 }
