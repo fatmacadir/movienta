@@ -6,7 +6,9 @@ export default async function handler(request, response) {
   try {
     let url = "";
     
-    if (popular) {
+    if (upcoming) {
+      url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${TMDB_KEY}&language=${lang || "tr-TR"}&page=1`;
+    }else if (popular) {
       const page = request.query.page || 1;
       url = `https://api.themoviedb.org/3/movie/popular?api_key=${TMDB_KEY}&language=${lang || "tr-TR"}&page=${page}`;
     }else if (genreId) {
