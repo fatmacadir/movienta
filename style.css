@@ -1,4 +1,3 @@
-
 * {
   box-sizing: border-box;
 }
@@ -44,7 +43,7 @@ body {
 .navbar {
   width: 100%;
   height: 85px;
-  background: rgba(0, 0, 0, 0.92);
+  background: rgba(0, 0, 0, 0.94);
   backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
@@ -53,45 +52,6 @@ body {
   top: 0;
   left: 0;
   z-index: 1000;
-}
-
-.dropdown-btn {
-  color: white;
-  background: transparent;
-}
-
-.dropdown-btn:hover {
-  color: white;
-  background: #ff4c60;
-}
-
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  top: 48px;
-  left: 0;
-  background: rgba(0, 0, 0, 0.96);
-  border-radius: 12px;
-  min-width: 170px;
-  padding: 8px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-}
-
-.dropdown-menu button {
-  width: 100%;
-  background: transparent;
-  color: white;
-  border: none;
-  padding: 9px 11px;
-  text-align: left;
-  cursor: pointer;
-  border-radius: 8px;
-  font-size: 14px;
-}
-
-.dropdown-menu button:hover {
-  background: rgba(255, 76, 96, 0.18);
-  color: white;
 }
 
 .logo {
@@ -123,7 +83,8 @@ nav a,
 
 nav a:hover,
 .dropdown-btn:hover {
-  color: #ff4c60;
+  color: white;
+  background: #ff4c60;
 }
 
 nav a.active {
@@ -140,11 +101,11 @@ nav a.active {
   position: absolute;
   top: 48px;
   left: 0;
-  background: #1f1f35;
+  background: rgba(0, 0, 0, 0.96);
   border-radius: 12px;
   min-width: 170px;
-  padding: 10px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+  padding: 8px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
 }
 
 .dropdown:hover .dropdown-menu {
@@ -156,27 +117,23 @@ nav a.active {
   background: transparent;
   color: white;
   border: none;
-  padding: 11px 12px;
+  padding: 9px 11px;
   text-align: left;
   cursor: pointer;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .dropdown-menu button:hover {
-  background: rgba(255,255,255,0.1);
-  color: #ff4c60;
+  background: rgba(255, 76, 96, 0.18);
+  color: white;
 }
 
 /* HERO */
 .hero {
   min-height: 500px;
   padding-top: 85px;
-  background:
-    linear-gradient(rgba(5, 5, 15, 0.58), rgba(5, 5, 15, 0.72)),
-    url("https://image.tmdb.org/t/p/original/8bcoRX3hQRHufLPSDREdvr3YMXx.jpg");
-  background-size: cover;
-  background-position: center;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -311,7 +268,7 @@ button:hover {
   grid-column: 1 / -1;
   display: flex;
   gap: 30px;
-  background-color: rgba(255,255,255,0.08);
+  background-color: rgba(255, 255, 255, 0.08);
   padding: 25px;
   border-radius: 18px;
   text-align: left;
@@ -354,7 +311,7 @@ button:hover {
 /* ABOUT */
 .about {
   margin-top: 70px;
-  background: rgba(255,255,255,0.07);
+  background: rgba(255, 255, 255, 0.07);
   padding: 30px;
   border-radius: 18px;
 }
