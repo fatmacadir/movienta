@@ -137,12 +137,17 @@ nav a.active {
 /* HERO */
 .hero {
   min-height: 800px;
-  padding-top: 85px;
+
+  margin-top: -85px;
+  padding-top: 170px;
+
   background:
     linear-gradient(rgba(5, 5, 15, 0.25), rgba(5, 5, 15, 0.45)),
     url("https://image.tmdb.org/t/p/original/8bcoRX3hQRHufLPSDREdvr3YMXx.jpg");
+
   background-size: cover;
   background-position: center 20%;
+
   display: flex;
   align-items: center;
   justify-content: center;
