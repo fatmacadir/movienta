@@ -261,3 +261,11 @@ function loadPosterWall() {
     <img src="https://image.tmdb.org/t/p/w300${path}" alt="Movie Poster">
   `).join("");
 }
+
+window.addToFavorites = addToFavorites;
+window.goBackToResults = goBackToResults;
+window.searchMovie = searchMovie;
+window.showMovieDetail = showMovieDetail;
+window.showFavorites = showFavorites;
+window.loadPopularMovies = loadPopularMovies;
+window.loadMoviesByGenre = loadMoviesByGenre;
