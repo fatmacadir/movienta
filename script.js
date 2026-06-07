@@ -1,41 +1,12 @@
-function loadPosterWall() {
-  const posterPaths = [
-    "/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg",
-    "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
-    "/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
-    "/9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg",
-    "/5VTN0pR8gcqV3EPUHHfMGnJYN9L.jpg",
-    "/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
-    "/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
-    "/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg",
-    "/y95lQLnuNKdPAzw9F9Ab8kJ80c3.jpg",
-    "/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg",
-    "/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg",
-    "/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg",
-    "/hziiv14OpD73u9gAak4XDDfBKa2.jpg",
-    "/vBZ0qvaRxqEhZwl6LWmruJqWE8Z.jpg",
-    "/2yYP0PQjG8zVqturh1BAqu2Tixl.jpg",
-    "/c24sv2weTHPsmDa7jEMN0m2P3RT.jpg",
-    "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
-    "/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg",
-    "/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg",
-    "/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg"
-  ];
-
-  const posterWall = document.getElementById("posterWall");
-
-  const repeatedPosters = [...posterPaths, ...posterPaths];
-
-  posterWall.innerHTML = repeatedPosters.map(path => `
-    <img src="https://image.tmdb.org/t/p/w300${path}" alt="Movie Poster">
-  `).join("");
-}
-
 const loader = document.getElementById("loader");
 const movieInput = document.getElementById("movieInput");
 const message = document.getElementById("message");
 const movieCard = document.getElementById("movieCard");
 const sectionTitle = document.getElementById("sectionTitle");
+
+let lastMovies = [];
+let lastTitle = "Popüler Filmler";
+let currentMovie = null;
 
 movieInput.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
@@ -44,13 +15,13 @@ movieInput.addEventListener("keydown", function (event) {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+  loadPosterWall();
   loadPopularMovies();
   loadUpcomingMovies();
 });
 
 function getLanguage() {
-  const languageSelect = document.getElementById("language");
-  return languageSelect ? languageSelect.value : "tr-TR";
+  return document.getElementById("language")?.value || "tr-TR";
 }
 
 function showLoader(text) {
@@ -66,6 +37,21 @@ function getPoster(path) {
   return path
     ? `https://image.tmdb.org/t/p/w300${path}`
     : "https://via.placeholder.com/300x450?text=No+Poster";
+}
+
+function displayMovieList(movies) {
+  lastMovies = movies;
+  lastTitle = sectionTitle.textContent;
+
+  movieCard.innerHTML = movies.slice(0, 12).map(movie => `
+    <div class="result-item" onclick="showMovieDetail(${movie.id})">
+      <img src="${getPoster(movie.poster_path)}" alt="${movie.title}">
+      <h3>${movie.title}</h3>
+      <p>${movie.release_date ? movie.release_date.slice(0, 4) : "Yıl bilinmiyor"}</p>
+    </div>
+  `).join("");
+
+  movieCard.classList.remove("hidden");
 }
 
 async function loadPopularMovies() {
@@ -123,30 +109,17 @@ async function searchMovie() {
       return;
     }
 
-   displayMovieList(data.results);
+    displayMovieList(data.results);
+    message.textContent = `${data.results.length} sonuç bulundu.`;
 
-  message.textContent = `${data.results.length} sonuç bulundu.`;
-
-  document.querySelector(".movies-section").scrollIntoView({
-  behavior: "smooth"
-  });
+    document.querySelector(".movies-section").scrollIntoView({
+      behavior: "smooth"
+    });
   } catch (error) {
     message.textContent = "Bir hata oluştu. Lütfen tekrar dene.";
   } finally {
     hideLoader();
   }
-}
-
-function displayMovieList(movies) {
-  movieCard.innerHTML = movies.slice(0, 12).map(movie => `
-    <div class="result-item" onclick="showMovieDetail(${movie.id})">
-      <img src="${getPoster(movie.poster_path)}" alt="${movie.title}">
-      <h3>${movie.title}</h3>
-      <p>${movie.release_date ? movie.release_date.slice(0, 4) : "Yıl bilinmiyor"}</p>
-    </div>
-  `).join("");
-
-  movieCard.classList.remove("hidden");
 }
 
 async function showMovieDetail(tmdbId) {
@@ -156,6 +129,14 @@ async function showMovieDetail(tmdbId) {
   try {
     const detailResponse = await fetch(`/api/movie?tmdbDetailId=${tmdbId}&lang=${getLanguage()}`);
     const movie = await detailResponse.json();
+
+    currentMovie = {
+      id: movie.id,
+      title: movie.title,
+      poster_path: movie.poster_path,
+      release_date: movie.release_date,
+      vote_average: movie.vote_average
+    };
 
     movieCard.innerHTML = `
       <div class="detail-card">
@@ -168,12 +149,8 @@ async function showMovieDetail(tmdbId) {
           <p><strong>Süre:</strong> ${movie.runtime ? movie.runtime + " dakika" : "Bilinmiyor"}</p>
           <p><strong>Açıklama:</strong> ${movie.overview || "Açıklama bulunamadı."}</p>
 
-          <button onclick="addToFavorites(${movie.id}, '${movie.title.replace(/'/g, "")}', '${movie.poster_path || ""}')">
-            Favorilere Ekle
-          </button>
-          <button onclick="goBackToResults()">
-            Sonuçlara Dön
-          </button>
+          <button onclick="addToFavorites()">Favorilere Ekle</button>
+          <button onclick="goBackToResults()">Sonuçlara Dön</button>
         </div>
       </div>
     `;
@@ -186,18 +163,22 @@ async function showMovieDetail(tmdbId) {
   }
 }
 
-function addToFavorites(id, title, posterPath) {
+function addToFavorites() {
+  if (!currentMovie) return;
+
   let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
-  const exists = favorites.some(movie => movie.id === id);
+  const exists = favorites.some(movie => movie.id === currentMovie.id);
 
-  if (!exists) {
-    favorites.push({ id, title, poster_path: posterPath });
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-    message.textContent = "Film favorilere eklendi.";
-  } else {
+  if (exists) {
     message.textContent = "Bu film zaten favorilerde.";
+    return;
   }
+
+  favorites.push(currentMovie);
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+
+  message.textContent = "Film favorilere eklendi.";
 }
 
 function showFavorites() {
@@ -215,7 +196,13 @@ function showFavorites() {
   message.textContent = "";
 }
 
-function loadPosterWall() {
+function goBackToResults() {
+  sectionTitle.textContent = lastTitle;
+  displayMovieList(lastMovies);
+
+  document.querySelector(".movies-section").scrollIntoView({
+    behavior: "smooth"
+  });
 }
 
 async function loadUpcomingMovies() {
@@ -243,8 +230,34 @@ async function loadUpcomingMovies() {
   }
 }
 
-function goBackToResults() {
-  document.querySelector(".movies-section").scrollIntoView({
-    behavior: "smooth"
-  });
+function loadPosterWall() {
+  const posterPaths = [
+    "/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg",
+    "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+    "/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+    "/9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg",
+    "/5VTN0pR8gcqV3EPUHHfMGnJYN9L.jpg",
+    "/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+    "/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+    "/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg",
+    "/y95lQLnuNKdPAzw9F9Ab8kJ80c3.jpg",
+    "/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg",
+    "/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg",
+    "/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg",
+    "/hziiv14OpD73u9gAak4XDDfBKa2.jpg",
+    "/vBZ0qvaRxqEhZwl6LWmruJqWE8Z.jpg",
+    "/2yYP0PQjG8zVqturh1BAqu2Tixl.jpg",
+    "/c24sv2weTHPsmDa7jEMN0m2P3RT.jpg",
+    "/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
+    "/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg",
+    "/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg",
+    "/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg"
+  ];
+
+  const posterWall = document.getElementById("posterWall");
+  const repeatedPosters = [...posterPaths, ...posterPaths, ...posterPaths];
+
+  posterWall.innerHTML = repeatedPosters.map(path => `
+    <img src="https://image.tmdb.org/t/p/w300${path}" alt="Movie Poster">
+  `).join("");
 }
