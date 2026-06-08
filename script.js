@@ -62,8 +62,8 @@ function displayMovieList(movies) {
 }
 
 async function loadPopularMovies() {
-  sectionTitle.textContent = "Popüler Filmler";
-  showLoader("Popüler filmler yükleniyor...");
+  ssectionTitle.textContent = translations[getLanguage()].popularMovies;
+  showLoader(translations[getLanguage()].loadingPopular);
 
   try {
     const response = await fetch(`/api/movie?popular=true&lang=${getLanguage()}`);
