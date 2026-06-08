@@ -352,12 +352,20 @@ window.loadMoviesByGenre = loadMoviesByGenre;
 window.updateLanguage = updateLanguage;
 
 function scrollToMovies() {
-  document.querySelector(".movies-section").scrollIntoView({
-    behavior: "smooth",
-    block: "start"
+  const target = document.querySelector(".movies-section");
+  const navbar = document.querySelector(".navbar");
+
+  const navbarHeight = navbar ? navbar.offsetHeight : 85;
+  const extraSpace = 35;
+
+  const targetPosition =
+    target.getBoundingClientRect().top + window.pageYOffset - navbarHeight - extraSpace;
+
+  window.scrollTo({
+    top: targetPosition,
+    behavior: "smooth"
   });
 }
 
 window.scrollToMovies = scrollToMovies;
 
-window.scrollToMovies = scrollToMovies;
