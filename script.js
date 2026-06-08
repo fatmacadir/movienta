@@ -352,9 +352,12 @@ window.loadMoviesByGenre = loadMoviesByGenre;
 window.updateLanguage = updateLanguage;
 
 function scrollToMovies() {
-  document.querySelector(".main-content").scrollIntoView({
-    behavior: "smooth"
+  document.querySelector(".movies-section").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
   });
 }
+
+window.scrollToMovies = scrollToMovies;
 
 window.scrollToMovies = scrollToMovies;
