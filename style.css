@@ -132,6 +132,7 @@ nav a.active {
   max-width: 850px;
   position: relative;
   z-index: 2;
+  transform: translateY(-50px);
 }
 
 .hero h1 {
@@ -401,7 +402,7 @@ button:hover {
 .scroll-down {
   position: absolute;
   left: 50%;
-  bottom: 5px;
+  bottom: 45px;
   width: 34px;
   height: 34px;
   border-right: 7px solid white;
