@@ -30,6 +30,7 @@ body {
   top: 0;
   left: 0;
   z-index: 1000;
+  overflow: visible;
 }
 
 .logo {
@@ -363,9 +364,10 @@ button:hover {
 
   .main-content {
   background: #0b1020;
-  padding: 140px 60px 60px;
+  padding: 160px 60px 60px;
   position: relative;
   z-index: 2;
+  min-height: 100vh;
 }
 
   .movie-card {
