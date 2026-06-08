@@ -112,7 +112,7 @@ nav a.active {
 
 /* HERO */
 .hero {
-  height: 730px;
+  height: 100vh;
   padding-top: 85px;
   background:
     linear-gradient(rgba(5, 5, 15, 0.28), rgba(5, 5, 15, 0.55)),
@@ -401,7 +401,7 @@ button:hover {
 .scroll-down {
   position: absolute;
   left: 50%;
-  bottom: 35px;
+  bottom: 45px;
   width: 34px;
   height: 34px;
   border-right: 7px solid white;
@@ -409,7 +409,7 @@ button:hover {
   transform: translateX(-50%) rotate(45deg);
   opacity: 0.9;
   animation: arrowMove 1.8s infinite;
-  z-index: 2;
+  z-index: 5;
 }
 
 @keyframes arrowMove {
