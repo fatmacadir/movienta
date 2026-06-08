@@ -423,3 +423,7 @@ button:hover {
     transform: translateX(-50%) translateY(10px) rotate(45deg);
   }
 }
+
+.movies-section {
+  scroll-margin-top: 120px;
+}
