@@ -1,5 +1,16 @@
 const translations = {
   "tr-TR": {
+    action: "Aksiyon",
+    comedy: "Komedi",
+    drama: "Dram",
+    horror: "Korku",
+    romance: "Romantik",
+    scifi: "Bilim Kurgu",
+    fantasy: "Fantastik",
+    animation: "Animasyon",
+    documentary: "Belgesel",
+    thriller: "Gerilim",
+    
     home: "Ana Sayfa",
     categories: "Kategoriler",
     favorites: "Favoriler",
@@ -12,6 +23,17 @@ const translations = {
   },
 
   "en-US": {
+    action: "Action",
+    comedy: "Comedy",
+    drama: "Drama",
+    horror: "Horror",
+    romance: "Romance",
+    scifi: "Sci-Fi",
+    fantasy: "Fantasy",
+    animation: "Animation",
+    documentary: "Documentary",
+    thriller: "Thriller",
+    
     home: "Home",
     categories: "Categories",
     favorites: "Favorites",
@@ -24,6 +46,17 @@ const translations = {
   },
 
   "de-DE": {
+    action: "Action",
+    comedy: "Komödie",
+    drama: "Drama",
+    horror: "Horror",
+    romance: "Romantik",
+    scifi: "Science-Fiction",
+    fantasy: "Fantasy",
+    animation: "Animation",
+    documentary: "Dokumentarfilm",
+    thriller: "Thriller",
+        
     home: "Startseite",
     categories: "Kategorien",
     favorites: "Favoriten",
@@ -36,6 +69,17 @@ const translations = {
   },
 
   "es-ES": {
+    action: "Acción",
+    comedy: "Comedia",
+    drama: "Drama",
+    horror: "Terror",
+    romance: "Romance",
+    scifi: "Ciencia ficción",
+    fantasy: "Fantasía",
+    animation: "Animación",
+    documentary: "Documental",
+    thriller: "Suspenso",
+    
     home: "Inicio",
     categories: "Categorías",
     favorites: "Favoritos",
