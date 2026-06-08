@@ -11,31 +11,34 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-
+  
 <header class="navbar">
-
+  
   <div class="logo">Movienta</div>
-
+  
   <nav>
+  <a id="homeText" href="index.html">Ana Sayfa</a>
 
-    <a href="index.html">
-      Ana Sayfa
-    </a>
+  <div class="dropdown">
+    <button id="categoryText" class="dropdown-btn">Kategoriler ▾</button>
 
-    <a href="categories.html">
-      Kategoriler
-    </a>
+    <div class="dropdown-menu">
+      <a id="genreAction" href="categories.html?genre=28">Aksiyon</a>
+      <a id="genreComedy" href="categories.html?genre=35">Komedi</a>
+      <a id="genreDrama" href="categories.html?genre=18">Dram</a>
+      <a id="genreHorror" href="categories.html?genre=27">Korku</a>
+      <a id="genreRomance" href="categories.html?genre=10749">Romantik</a>
+      <a id="genreSciFi" href="categories.html?genre=878">Bilim Kurgu</a>
+      <a id="genreFantasy" href="categories.html?genre=14">Fantastik</a>
+      <a id="genreAnimation" href="categories.html?genre=16">Animasyon</a>
+      <a id="genreDocumentary" href="categories.html?genre=99">Belgesel</a>
+      <a id="genreThriller" href="categories.html?genre=53">Gerilim</a>
+    </div>
+  </div>
 
-    <a href="favorites.html">
-      Favoriler
-    </a>
-
-    <a href="about.html" class="active">
-      Hakkında
-    </a>
-
-  </nav>
-
+  <a id="favoriteText" href="favorites.html" class="active">Favoriler</a>
+  <a id="aboutText" href="about.html">Hakkında</a>
+</nav>
 </header>
 
 <main class="main-content">
