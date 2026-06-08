@@ -350,3 +350,11 @@ window.showFavorites = showFavorites;
 window.loadPopularMovies = loadPopularMovies;
 window.loadMoviesByGenre = loadMoviesByGenre;
 window.updateLanguage = updateLanguage;
+
+function scrollToMovies() {
+  document.querySelector(".main-content").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+window.scrollToMovies = scrollToMovies;
