@@ -285,3 +285,41 @@ if (languageSelect) {
     loadUpcomingMovies();
   });
 }
+
+function updateLanguage() {
+  const lang = getLanguage();
+  const t = translations[lang] || translations["tr-TR"];
+
+  const setText = (id, text) => {
+    const element = document.getElementById(id);
+    if (element) element.textContent = text;
+  };
+
+  setText("homeText", t.home);
+  setText("categoryText", `${t.categories} ▾`);
+  setText("favoriteText", t.favorites);
+  setText("aboutText", t.about);
+
+  setText("genreAction", t.action);
+  setText("genreComedy", t.comedy);
+  setText("genreDrama", t.drama);
+  setText("genreHorror", t.horror);
+  setText("genreRomance", t.romance);
+  setText("genreSciFi", t.scifi);
+  setText("genreFantasy", t.fantasy);
+  setText("genreAnimation", t.animation);
+  setText("genreDocumentary", t.documentary);
+  setText("genreThriller", t.thriller);
+
+  setText("subtitle", t.subtitle);
+  setText("searchBtn", t.searchButton);
+  setText("sectionTitle", t.popularMovies);
+  setText("upcomingTitle", t.upcomingMovies);
+
+  const movieInput = document.getElementById("movieInput");
+  if (movieInput) {
+    movieInput.placeholder = t.searchPlaceholder;
+  }
+}
+
+window.updateLanguage = updateLanguage;
