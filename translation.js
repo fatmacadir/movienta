@@ -4,17 +4,11 @@ const translations = {
     categories: "Kategoriler",
     favorites: "Favoriler",
     about: "Hakkında",
-
     popularMovies: "Popüler Filmler",
     upcomingMovies: "Yakında Çıkacak Filmler",
-
-    aboutTitle: "Movienta Hakkında",
-
-    aboutText1:
-      "Movienta, HTML, CSS ve JavaScript kullanılarak geliştirilen bir film keşif platformudur.",
-
-    aboutText2:
-      "Kullanıcılar film arayabilir, kategorileri keşfedebilir, yakında çıkacak filmleri görebilir ve favorilerine ekleyebilir."
+    searchPlaceholder: "Bir film adı girin...",
+    searchButton: "Ara",
+    subtitle: "Bir film arayın ve temel bilgilerini görüntüleyin."
   },
 
   "en-US": {
@@ -22,35 +16,23 @@ const translations = {
     categories: "Categories",
     favorites: "Favorites",
     about: "About",
-
     popularMovies: "Popular Movies",
     upcomingMovies: "Upcoming Movies",
-
-    aboutTitle: "About Movienta",
-
-    aboutText1:
-      "Movienta is a movie discovery platform developed with HTML, CSS and JavaScript.",
-
-    aboutText2:
-      "Users can search movies, explore categories, discover upcoming movies and save favorites."
+    searchPlaceholder: "Enter a movie name...",
+    searchButton: "Search",
+    subtitle: "Search for a movie and see its basic information."
   },
 
   "de-DE": {
     home: "Startseite",
     categories: "Kategorien",
     favorites: "Favoriten",
-    about: "Über",
-
+    about: "Über uns",
     popularMovies: "Beliebte Filme",
-    upcomingMovies: "Demnächst erscheinende Filme",
-
-    aboutTitle: "Über Movienta",
-
-    aboutText1:
-      "Movienta ist eine Filmplattform, die mit HTML, CSS und JavaScript entwickelt wurde.",
-
-    aboutText2:
-      "Benutzer können Filme suchen, Kategorien entdecken und Favoriten speichern."
+    upcomingMovies: "Demnächst",
+    searchPlaceholder: "Filmnamen eingeben...",
+    searchButton: "Suchen",
+    subtitle: "Suche nach einem Film und sieh dir seine Informationen an."
   },
 
   "es-ES": {
@@ -58,16 +40,10 @@ const translations = {
     categories: "Categorías",
     favorites: "Favoritos",
     about: "Acerca de",
-
-    popularMovies: "Películas populares",
-    upcomingMovies: "Próximos estrenos",
-
-    aboutTitle: "Acerca de Movienta",
-
-    aboutText1:
-      "Movienta es una plataforma de películas desarrollada con HTML, CSS y JavaScript.",
-
-    aboutText2:
-      "Los usuarios pueden buscar películas, explorar categorías y guardar favoritos."
+    popularMovies: "Películas Populares",
+    upcomingMovies: "Próximamente",
+    searchPlaceholder: "Introduce una película...",
+    searchButton: "Buscar",
+    subtitle: "Busca una película y consulta su información básica."
   }
 };
