@@ -8,6 +8,14 @@ let lastMovies = [];
 let lastTitle = "Popüler Filmler";
 let currentMovie = null;
 
+function getLanguage() {
+  return document.getElementById("language")?.value || localStorage.getItem("language") || "tr-TR";
+}
+
+function getText() {
+  return translations[getLanguage()] || translations["tr-TR"];
+}
+
 movieInput.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
     searchMovie();
@@ -27,10 +35,6 @@ document.addEventListener("DOMContentLoaded", function () {
   loadUpcomingMovies();
 });
 
-function getLanguage() {
-  return document.getElementById("language")?.value || "tr-TR";
-}
-
 function showLoader(text) {
   message.textContent = text;
   loader.classList.remove("hidden");
@@ -47,6 +51,8 @@ function getPoster(path) {
 }
 
 function displayMovieList(movies) {
+  const t = getText();
+
   lastMovies = movies;
   lastTitle = sectionTitle.textContent;
 
@@ -54,7 +60,7 @@ function displayMovieList(movies) {
     <div class="result-item" onclick="showMovieDetail(${movie.id})">
       <img src="${getPoster(movie.poster_path)}" alt="${movie.title}">
       <h3>${movie.title}</h3>
-      <p>${movie.release_date ? movie.release_date.slice(0, 4) : "Yıl bilinmiyor"}</p>
+      <p>${movie.release_date ? movie.release_date.slice(0, 4) : t.unknownYear}</p>
     </div>
   `).join("");
 
@@ -62,8 +68,10 @@ function displayMovieList(movies) {
 }
 
 async function loadPopularMovies() {
-  ssectionTitle.textContent = translations[getLanguage()].popularMovies;
-  showLoader(translations[getLanguage()].loadingPopular);
+  const t = getText();
+
+  sectionTitle.textContent = t.popularMovies;
+  showLoader(t.loadingPopular);
 
   try {
     const response = await fetch(`/api/movie?popular=true&lang=${getLanguage()}`);
@@ -72,15 +80,17 @@ async function loadPopularMovies() {
     displayMovieList(data.results || []);
     message.textContent = "";
   } catch (error) {
-    message.textContent = "Popüler filmler yüklenemedi.";
+    message.textContent = t.errorPopular;
   } finally {
     hideLoader();
   }
 }
 
 async function loadMoviesByGenre(genreId, genreName) {
-  sectionTitle.textContent = `${genreName} Filmleri`;
-  showLoader(`${genreName} filmleri yükleniyor...`);
+  const t = getText();
+
+  sectionTitle.textContent = `${genreName} ${t.movies}`;
+  showLoader(t.loadingGenre);
 
   try {
     const response = await fetch(`/api/movie?genreId=${genreId}&lang=${getLanguage()}`);
@@ -89,22 +99,23 @@ async function loadMoviesByGenre(genreId, genreName) {
     displayMovieList(data.results || []);
     message.textContent = "";
   } catch (error) {
-    message.textContent = "Kategori filmleri yüklenemedi.";
+    message.textContent = t.errorGenre;
   } finally {
     hideLoader();
   }
 }
 
 async function searchMovie() {
+  const t = getText();
   const movieName = movieInput.value.trim();
 
   if (movieName === "") {
-    message.textContent = "Lütfen bir film adı gir.";
+    message.textContent = t.enterMovieName;
     return;
   }
 
-  sectionTitle.textContent = "Arama Sonuçları";
-  showLoader("Film aranıyor...");
+  sectionTitle.textContent = t.searchResults;
+  showLoader(t.loadingMovie);
 
   try {
     const response = await fetch(`/api/movie?query=${encodeURIComponent(movieName)}&lang=${getLanguage()}`);
@@ -112,26 +123,28 @@ async function searchMovie() {
 
     if (!data.results || data.results.length === 0) {
       movieCard.innerHTML = "";
-      message.textContent = "Film bulunamadı. Başka bir isim dene.";
+      message.textContent = t.movieNotFound;
       return;
     }
 
     displayMovieList(data.results);
-    message.textContent = `${data.results.length} sonuç bulundu.`;
+    message.textContent = `${data.results.length} ${t.resultsFound}`;
 
     document.querySelector(".movies-section").scrollIntoView({
       behavior: "smooth"
     });
   } catch (error) {
-    message.textContent = "Bir hata oluştu. Lütfen tekrar dene.";
+    message.textContent = t.generalError;
   } finally {
     hideLoader();
   }
 }
 
 async function showMovieDetail(tmdbId) {
-  sectionTitle.textContent = "Film Detayı";
-  showLoader("Film detayı yükleniyor...");
+  const t = getText();
+
+  sectionTitle.textContent = t.movieDetail;
+  showLoader(t.loadingDetail);
 
   try {
     const detailResponse = await fetch(`/api/movie?tmdbDetailId=${tmdbId}&lang=${getLanguage()}`);
@@ -151,26 +164,28 @@ async function showMovieDetail(tmdbId) {
 
         <div class="movie-info">
           <h2>${movie.title}</h2>
-          <p><strong>Yıl:</strong> ${movie.release_date ? movie.release_date.slice(0, 4) : "Bilinmiyor"}</p>
-          <p><strong>Puan:</strong> ⭐ ${movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}</p>
-          <p><strong>Süre:</strong> ${movie.runtime ? movie.runtime + " dakika" : "Bilinmiyor"}</p>
-          <p><strong>Açıklama:</strong> ${movie.overview || "Açıklama bulunamadı."}</p>
+          <p><strong>${t.year}:</strong> ${movie.release_date ? movie.release_date.slice(0, 4) : t.unknown}</p>
+          <p><strong>${t.rating}:</strong> ⭐ ${movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}</p>
+          <p><strong>${t.runtime}:</strong> ${movie.runtime ? movie.runtime + " " + t.minutes : t.unknown}</p>
+          <p><strong>${t.description}:</strong> ${movie.overview || t.noDescription}</p>
 
-          <button onclick="addToFavorites()">Favorilere Ekle</button>
-          <button onclick="goBackToResults()">Sonuçlara Dön</button>
+          <button onclick="addToFavorites()">${t.addToFavorites}</button>
+          <button onclick="goBackToResults()">${t.backToResults}</button>
         </div>
       </div>
     `;
 
     message.textContent = "";
   } catch (error) {
-    message.textContent = "Film detayı yüklenemedi.";
+    message.textContent = t.errorDetail;
   } finally {
     hideLoader();
   }
 }
 
 function addToFavorites() {
+  const t = getText();
+
   if (!currentMovie) return;
 
   let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -178,24 +193,26 @@ function addToFavorites() {
   const exists = favorites.some(movie => movie.id === currentMovie.id);
 
   if (exists) {
-    message.textContent = "Bu film zaten favorilerde.";
+    message.textContent = t.alreadyFavorite;
     return;
   }
 
   favorites.push(currentMovie);
   localStorage.setItem("favorites", JSON.stringify(favorites));
 
-  message.textContent = "Film favorilere eklendi.";
+  message.textContent = t.addedFavorite;
 }
 
 function showFavorites() {
-  sectionTitle.textContent = "Favorilerim";
+  const t = getText();
+
+  sectionTitle.textContent = t.myFavorites;
 
   const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
   if (favorites.length === 0) {
     movieCard.innerHTML = "";
-    message.textContent = "Henüz favori film eklenmedi.";
+    message.textContent = t.noFavorites;
     return;
   }
 
@@ -213,6 +230,13 @@ function goBackToResults() {
 }
 
 async function loadUpcomingMovies() {
+  const t = getText();
+
+  const upcomingTitle = document.getElementById("upcomingTitle");
+  if (upcomingTitle) {
+    upcomingTitle.textContent = t.upcomingMovies;
+  }
+
   try {
     const response = await fetch(`/api/movie?upcoming=true&lang=${getLanguage()}`);
     const data = await response.json();
@@ -220,7 +244,7 @@ async function loadUpcomingMovies() {
     const upcomingContainer = document.getElementById("upcomingMovies");
 
     if (!data.results || data.results.length === 0) {
-      upcomingContainer.innerHTML = "<p>Yakında çıkacak film bulunamadı.</p>";
+      upcomingContainer.innerHTML = `<p>${t.noUpcoming}</p>`;
       return;
     }
 
@@ -228,7 +252,7 @@ async function loadUpcomingMovies() {
       <div class="result-item" onclick="showMovieDetail(${movie.id})">
         <img src="${getPoster(movie.poster_path)}" alt="${movie.title}">
         <h3>${movie.title}</h3>
-        <p>${movie.release_date ? movie.release_date.slice(0, 4) : "Yakında"}</p>
+        <p>${movie.release_date ? movie.release_date.slice(0, 4) : t.comingSoon}</p>
       </div>
     `).join("");
 
@@ -238,6 +262,10 @@ async function loadUpcomingMovies() {
 }
 
 function loadPosterWall() {
+  const posterWall = document.getElementById("posterWall");
+
+  if (!posterWall) return;
+
   const posterPaths = [
     "/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg",
     "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
@@ -261,7 +289,6 @@ function loadPosterWall() {
     "/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg"
   ];
 
-  const posterWall = document.getElementById("posterWall");
   const repeatedPosters = [...posterPaths, ...posterPaths, ...posterPaths];
 
   posterWall.innerHTML = repeatedPosters.map(path => `
@@ -269,29 +296,8 @@ function loadPosterWall() {
   `).join("");
 }
 
-window.addToFavorites = addToFavorites;
-window.goBackToResults = goBackToResults;
-window.searchMovie = searchMovie;
-window.showMovieDetail = showMovieDetail;
-window.showFavorites = showFavorites;
-window.loadPopularMovies = loadPopularMovies;
-window.loadMoviesByGenre = loadMoviesByGenre;
-
-const languageSelect = document.getElementById("language");
-
-if (languageSelect) {
-  languageSelect.addEventListener("change", function () {
-    localStorage.setItem("language", languageSelect.value);
-
-    updateLanguage();
-    loadPopularMovies();
-    loadUpcomingMovies();
-  });
-}
-
 function updateLanguage() {
-  const lang = getLanguage();
-  const t = translations[lang] || translations["tr-TR"];
+  const t = getText();
 
   const setText = (id, text) => {
     const element = document.getElementById(id);
@@ -319,10 +325,28 @@ function updateLanguage() {
   setText("sectionTitle", t.popularMovies);
   setText("upcomingTitle", t.upcomingMovies);
 
-  const movieInput = document.getElementById("movieInput");
   if (movieInput) {
     movieInput.placeholder = t.searchPlaceholder;
   }
 }
 
+const languageSelect = document.getElementById("language");
+
+if (languageSelect) {
+  languageSelect.addEventListener("change", function () {
+    localStorage.setItem("language", languageSelect.value);
+
+    updateLanguage();
+    loadPopularMovies();
+    loadUpcomingMovies();
+  });
+}
+
+window.addToFavorites = addToFavorites;
+window.goBackToResults = goBackToResults;
+window.searchMovie = searchMovie;
+window.showMovieDetail = showMovieDetail;
+window.showFavorites = showFavorites;
+window.loadPopularMovies = loadPopularMovies;
+window.loadMoviesByGenre = loadMoviesByGenre;
 window.updateLanguage = updateLanguage;
