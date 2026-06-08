@@ -112,7 +112,7 @@ nav a.active {
 
 /* HERO */
 .hero {
-  min-height: 600px;
+  min-height: 620px;
   padding-top: 85px;
   background:
     linear-gradient(rgba(5, 5, 15, 0.28), rgba(5, 5, 15, 0.55)),
