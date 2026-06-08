@@ -118,7 +118,7 @@ nav a.active {
     linear-gradient(rgba(5, 5, 15, 0.28), rgba(5, 5, 15, 0.55)),
     url("https://image.tmdb.org/t/p/original/8bcoRX3hQRHufLPSDREdvr3YMXx.jpg");
   background-size: cover;
-  background-position: center 8%;
+  background-position: center top;
   display: flex;
   align-items: center;
   justify-content: center;
