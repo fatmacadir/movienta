@@ -362,8 +362,11 @@ button:hover {
   }
 
   .main-content {
-    padding: 35px 22px;
-  }
+  background: #0b1020;
+  padding: 140px 60px 60px;
+  position: relative;
+  z-index: 2;
+}
 
   .movie-card {
     grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
