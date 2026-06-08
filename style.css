@@ -398,7 +398,7 @@ button:hover {
 .scroll-down {
   position: absolute;
   left: 50%;
-  bottom: 25px;
+  bottom: 15px;
   width: 34px;
   height: 34px;
   border-right: 7px solid white;
