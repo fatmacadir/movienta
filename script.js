@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("language").value = savedLanguage;
   }
 
+  updateLanguage();
   loadPosterWall();
   loadPopularMovies();
   loadUpcomingMovies();
@@ -281,6 +282,8 @@ const languageSelect = document.getElementById("language");
 if (languageSelect) {
   languageSelect.addEventListener("change", function () {
     localStorage.setItem("language", languageSelect.value);
+
+    updateLanguage();
     loadPopularMovies();
     loadUpcomingMovies();
   });
