@@ -5,49 +5,25 @@
 body {
   margin: 0;
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
-  background: linear-gradient(135deg, #151525, #252544);
+  background: #0b1020;
   color: white;
   min-height: 100vh;
 }
 
-.poster-wall {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 10px;
-  z-index: -3;
-  overflow: hidden;
-  padding: 10px;
-}
-
-.poster-wall img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 10px;
-  opacity: 0.28;
-}
-
+/* Poster wall artık görünmeyecek */
+.poster-wall,
 .dark-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(8, 8, 20, 0.55);
-  z-index: -2;
+  display: none;
 }
 
-/* NAVBAR */
 /* NAVBAR */
 .navbar {
   width: 100%;
   height: 85px;
-  background: rgba(0, 0, 0, 0.68);
+  background: rgba(0, 0, 0, 0.72);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   display: flex;
   align-items: center;
   padding: 0 60px;
@@ -59,7 +35,7 @@ body {
 
 .logo {
   font-size: 28px;
-  font-weight: bold;
+  font-weight: 800;
   color: #b2071b;
   margin-right: 220px;
 }
@@ -86,15 +62,14 @@ nav a,
 
 nav a:hover,
 .dropdown-btn:hover {
-  color: white;
   background: #b2071b;
 }
 
 nav a.active {
   background: linear-gradient(135deg, #b2071b, #b91f38);
-  color: white;
 }
 
+/* DROPDOWN */
 .dropdown {
   position: relative;
 }
@@ -109,6 +84,7 @@ nav a.active {
   min-width: 170px;
   padding: 8px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+  z-index: 1001;
 }
 
 .dropdown:hover .dropdown-menu {
@@ -128,8 +104,7 @@ nav a.active {
 }
 
 .dropdown-menu button:hover {
-  background: rgba(255, 76, 96, 0.18);
-  color: white;
+  background: rgba(178, 7, 27, 0.35);
 }
 
 /* HERO */
@@ -137,7 +112,7 @@ nav a.active {
   min-height: 800px;
   padding-top: 85px;
   background:
-    linear-gradient(rgba(5, 5, 15, 0.25), rgba(5, 5, 15, 0.45)),
+    linear-gradient(rgba(5, 5, 15, 0.28), rgba(5, 5, 15, 0.55)),
     url("https://image.tmdb.org/t/p/original/8bcoRX3hQRHufLPSDREdvr3YMXx.jpg");
   background-size: cover;
   background-position: center 20%;
@@ -156,22 +131,7 @@ nav a.active {
 .hero h1 {
   margin: 0 0 12px;
   font-size: 56px;
-}
-
-.hero p {
-  margin: 0 0 30px;
-  color: #e6e6f0;
-  font-size: 20px;
-}
-
-.hero-content {
-  width: 90%;
-  max-width: 850px;
-}
-
-.hero h1 {
-  margin: 0 0 12px;
-  font-size: 56px;
+  font-weight: 800;
 }
 
 .hero p {
@@ -214,7 +174,7 @@ button {
 }
 
 button:hover {
-  background-color: #b2071b;
+  background-color: #8f0616;
 }
 
 #message {
@@ -224,12 +184,19 @@ button:hover {
 
 /* MAIN CONTENT */
 .main-content {
-  padding: 40px 60px;
+  background: #0b1020;
+  padding: 60px;
+  position: relative;
+  z-index: 2;
+}
+
+.movies-section {
+  margin-bottom: 65px;
 }
 
 .movies-section h2 {
-  font-size: 30px;
-  margin-bottom: 30px;
+  font-size: 34px;
+  margin: 0 0 35px;
   position: relative;
 }
 
@@ -262,7 +229,7 @@ button:hover {
   padding: 0;
   border-radius: 14px;
   cursor: pointer;
-  transition: 0.25s;
+  transition: 0.25s ease;
 }
 
 .result-item:hover {
@@ -300,6 +267,7 @@ button:hover {
 .detail-card img {
   width: 230px;
   border-radius: 12px;
+  align-self: flex-start;
 }
 
 .movie-info h2 {
@@ -311,7 +279,7 @@ button:hover {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 /* LOADER */
@@ -325,12 +293,6 @@ button:hover {
   animation: spin 1s linear infinite;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 /* ABOUT */
 .about {
   margin-top: 70px;
@@ -341,6 +303,13 @@ button:hover {
 
 .about h2 {
   margin-top: 0;
+}
+
+/* ANIMATIONS */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* RESPONSIVE */
@@ -361,7 +330,14 @@ button:hover {
     gap: 10px;
   }
 
+  nav a,
+  .dropdown-btn {
+    font-size: 15px;
+    padding: 10px 14px;
+  }
+
   .hero {
+    min-height: 720px;
     padding-top: 150px;
   }
 
@@ -379,13 +355,31 @@ button:hover {
     width: 100%;
   }
 
+  select {
+    padding: 14px;
+  }
+
   .main-content {
-    padding: 30px 22px;
+    padding: 35px 22px;
+  }
+
+  .movie-card {
+    grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+    gap: 20px;
+  }
+
+  .result-item img {
+    height: 220px;
   }
 
   .detail-card {
     flex-direction: column;
     align-items: center;
     text-align: center;
+  }
+
+  .detail-card img {
+    width: 70%;
+    max-width: 260px;
   }
 }
