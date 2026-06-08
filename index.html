@@ -16,27 +16,27 @@
     <div class="logo">Movienta</div>
 
     <nav>
-      <a href="index.html" class="active">Ana Sayfa</a>
+      <a id="homeText" href="index.html" class="active">Ana Sayfa</a>
     
       <div class="dropdown">
-        <button class="dropdown-btn">Kategoriler ▾</button>
+        <button id="categoryText" class="dropdown-btn">Kategoriler ▾</button>
     
         <div class="dropdown-menu">
-          <a href="categories.html?genre=28">Aksiyon</a>
-          <a href="categories.html?genre=35">Komedi</a>
-          <a href="categories.html?genre=18">Dram</a>
-          <a href="categories.html?genre=27">Korku</a>
-          <a href="categories.html?genre=10749">Romantik</a>
-          <a href="categories.html?genre=878">Bilim Kurgu</a>
-          <a href="categories.html?genre=14">Fantastik</a>
-          <a href="categories.html?genre=16">Animasyon</a>
-          <a href="categories.html?genre=99">Belgesel</a>
-          <a href="categories.html?genre=53">Gerilim</a>
+          <a id="genreAction" href="categories.html?genre=28">Aksiyon</a>
+          <a id="genreComedy" href="categories.html?genre=35">Komedi</a>
+          <a id="genreDrama" href="categories.html?genre=18">Dram</a>
+          <a id="genreHorror" href="categories.html?genre=27">Korku</a>
+          <a id="genreRomance" href="categories.html?genre=10749">Romantik</a>
+          <a id="genreSciFi" href="categories.html?genre=878">Bilim Kurgu</a>
+          <a id="genreFantasy" href="categories.html?genre=14">Fantastik</a>
+          <a id="genreAnimation" href="categories.html?genre=16">Animasyon</a>
+          <a id="genreDocumentary" href="categories.html?genre=99">Belgesel</a>
+          <a id="genreThriller" href="categories.html?genre=53">Gerilim</a>
         </div>
       </div>
     
-      <a href="favorites.html">Favoriler</a>
-      <a href="about.html">Hakkında</a>
+      <a id="favoriteText" href="favorites.html">Favoriler</a>
+      <a id="aboutText" href="about.html">Hakkında</a>
     </nav>
   </header>
 
@@ -45,7 +45,7 @@
 
     <div class="hero-content">
       <h1>Movienta</h1>
-      <p>Search for a movie and see its basic information.</p>
+      <p id="subtitle">Search for a movie and see its basic information.</p>
 
       <div class="search-box">
         <input type="text" id="movieInput" placeholder="Enter a movie name..." />
@@ -57,7 +57,7 @@
           <option value="es-ES">Español</option>
         </select>
 
-        <button onclick="searchMovie()">Search</button>
+        <button id="searchBtn" onclick="searchMovie()">Search</button>
       </div>
 
       <p id="message"></p>
