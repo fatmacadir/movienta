@@ -10,7 +10,6 @@ body {
   min-height: 100vh;
 }
 
-/* Poster wall artık görünmeyecek */
 .poster-wall,
 .dark-overlay {
   display: none;
@@ -91,11 +90,12 @@ nav a.active {
   display: block;
 }
 
-.dropdown-menu button {
+.dropdown-menu a {
+  display: block;
   width: 100%;
   background: transparent;
   color: white;
-  border: none;
+  text-decoration: none;
   padding: 9px 11px;
   text-align: left;
   cursor: pointer;
@@ -103,9 +103,11 @@ nav a.active {
   font-size: 14px;
 }
 
-.dropdown-menu button:hover {
+.dropdown-menu a:hover {
   background: rgba(178, 7, 27, 0.35);
+  color: white;
 }
+
 
 /* HERO */
 .hero {
