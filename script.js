@@ -15,6 +15,12 @@ movieInput.addEventListener("keydown", function (event) {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+  const savedLanguage = localStorage.getItem("language");
+
+  if (savedLanguage && document.getElementById("language")) {
+    document.getElementById("language").value = savedLanguage;
+  }
+
   loadPosterWall();
   loadPopularMovies();
   loadUpcomingMovies();
@@ -269,3 +275,13 @@ window.showMovieDetail = showMovieDetail;
 window.showFavorites = showFavorites;
 window.loadPopularMovies = loadPopularMovies;
 window.loadMoviesByGenre = loadMoviesByGenre;
+
+const languageSelect = document.getElementById("language");
+
+if (languageSelect) {
+  languageSelect.addEventListener("change", function () {
+    localStorage.setItem("language", languageSelect.value);
+    loadPopularMovies();
+    loadUpcomingMovies();
+  });
+}
