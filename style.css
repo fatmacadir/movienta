@@ -411,6 +411,7 @@ button:hover {
   opacity: 0.9;
   animation: arrowMove 1.8s infinite;
   z-index: 5;
+  cursor: pointer;
 }
 
 @keyframes arrowMove {
