@@ -401,7 +401,7 @@ button:hover {
 .scroll-down {
   position: absolute;
   left: 50%;
-  bottom: 20px;
+  bottom: 18px;
   width: 34px;
   height: 34px;
   border-right: 7px solid white;
