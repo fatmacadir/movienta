@@ -23,7 +23,7 @@ export default async function handler(request, response) {
       const page = request.query.page || 1;
       url = `https://api.themoviedb.org/3/movie/popular?api_key=${TMDB_KEY}&language=${lang || "tr-TR"}&page=${page}`;
     } else if (genreId) {
-      url = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_KEY}&with_genres=${genreId}&language=${lang || "tr-TR"}&sort_by=popularity.desc&page=1`;
+      url = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_KEY}&with_genres=${genreId}&language=${lang || "tr-TR"}&sort_by=popularity.desc&include_adult=false&page=1`;
     } else if (query) {
       url = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query=${encodeURIComponent(query)}&language=${lang || "tr-TR"}`;
     } else if (tmdbId) {
@@ -31,7 +31,7 @@ export default async function handler(request, response) {
     } else if (tmdbDetailId) {
       url = `https://api.themoviedb.org/3/movie/${tmdbDetailId}?api_key=${TMDB_KEY}&language=${lang || "tr-TR"}`;
     } else if (similarId) {
-      url = `https://api.themoviedb.org/3/movie/${similarId}/similar?api_key=${TMDB_KEY}&language=${lang || "tr-TR"}`;
+      url = `https://api.themoviedb.org/3/movie/${similarId}/similar?api_key=${TMDB_KEY}&language=${lang || "tr-TR"}&include_adult=false`;
     } else if (imdbId) {
       url = `https://www.omdbapi.com/?i=${imdbId}&plot=short&apikey=${OMDB_KEY}`;
     } else {
