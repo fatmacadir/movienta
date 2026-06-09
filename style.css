@@ -462,17 +462,59 @@ button:hover {
   opacity: 1;
 }
 
-.remove-btn {
-  margin-top: 10px;
-  width: 100%;
-  background: rgba(255,255,255,0.08);
-  color: white;
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 10px;
-  padding: 12px;
-  transition: 0.3s;
+.poster-wrapper {
+  position: relative;
 }
 
-.remove-btn:hover {
+.menu-dots {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.72);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  font-size: 22px;
+  line-height: 30px;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.menu-dots:hover {
+  background: rgba(0, 0, 0, 0.92);
+}
+
+.favorite-menu {
+  display: none;
+  position: absolute;
+  top: 48px;
+  right: 9px;
+  background: rgba(15, 15, 20, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 8px;
+  z-index: 10;
+  min-width: 165px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+}
+
+.favorite-menu.show {
+  display: block;
+}
+
+.favorite-menu button {
+  width: 100%;
+  background: transparent;
+  color: white;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.favorite-menu button:hover {
   background: #b2071b;
 }
