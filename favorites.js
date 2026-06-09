@@ -16,7 +16,9 @@ function removeFromFavorites(id) {
   showFavoritesPage();
 }
 
-function toggleFavoriteMenu(id) {
+function toggleFavoriteMenu(id, event) {
+  event.stopPropagation();
+
   const menu = document.getElementById(`fav-menu-${id}`);
 
   document.querySelectorAll(".favorite-menu").forEach(item => {
@@ -41,7 +43,7 @@ function showFavoritesPage() {
       <div class="poster-wrapper">
         <img src="${getPoster(movie.poster_path)}" alt="${movie.title}">
 
-        <button class="menu-dots" onclick="toggleFavoriteMenu(${movie.id})">
+        <button class="menu-dots" onclick="toggleFavoriteMenu(${movie.id}, event)">
           ⋮
         </button>
 
@@ -58,34 +60,13 @@ function showFavoritesPage() {
   `).join("");
 }
 
+document.addEventListener("click", function () {
+  document.querySelectorAll(".favorite-menu").forEach(menu => {
+    menu.classList.remove("show");
+  });
+});
 
 window.removeFromFavorites = removeFromFavorites;
 window.toggleFavoriteMenu = toggleFavoriteMenu;
 
 showFavoritesPage();
-
-document.addEventListener("mousemove", function (event) {
-
-  if (
-    !event.target.closest(".menu-dots") &&
-    !event.target.closest(".favorite-menu")
-  ) {
-
-    document.querySelectorAll(".favorite-menu").forEach(menu => {
-      menu.classList.remove("show");
-    });
-
-  }
-
-});
-
-document.addEventListener("click", function (event) {
-  if (
-    !event.target.closest(".menu-dots") &&
-    !event.target.closest(".favorite-menu")
-  ) {
-    document.querySelectorAll(".favorite-menu").forEach(menu => {
-      menu.classList.remove("show");
-    });
-  }
-});
