@@ -431,3 +431,24 @@ button:hover {
 .dropdown-btn.active {
   background: linear-gradient(135deg, #b2071b, #b91f38);
 }
+
+#toast {
+  position: fixed;
+  top: 100px;
+  right: 30px;
+  background: #b2071b;
+  color: white;
+  padding: 15px 22px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+  z-index: 9999;
+  box-shadow: 0 8px 25px rgba(0,0,0,.3);
+}
+
+#toast.show {
+  opacity: 1;
+}
