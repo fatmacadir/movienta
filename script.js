@@ -193,14 +193,14 @@ function addToFavorites() {
   const exists = favorites.some(movie => movie.id === currentMovie.id);
 
   if (exists) {
-    message.textContent = t.alreadyFavorite;
+    showToast(t.alreadyFavorite);
     return;
   }
 
   favorites.push(currentMovie);
   localStorage.setItem("favorites", JSON.stringify(favorites));
 
-  message.textContent = t.addedFavorite;
+  showToast(t.addedFavorite);
 }
 
 function showFavorites() {
@@ -371,6 +371,8 @@ window.scrollToMovies = scrollToMovies;
 
 function showToast(text) {
   const toast = document.getElementById("toast");
+
+  if (!toast) return;
 
   toast.textContent = text;
   toast.classList.add("show");
