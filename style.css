@@ -427,3 +427,7 @@ button:hover {
 .movies-section {
   scroll-margin-top: 120px;
 }
+
+.dropdown-btn.active {
+  background: linear-gradient(135deg, #b2071b, #b91f38);
+}
