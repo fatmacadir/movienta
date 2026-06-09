@@ -249,7 +249,7 @@ async function loadUpcomingMovies() {
     }
 
     upcomingContainer.innerHTML = data.results.slice(0, 6).map(movie => `
-      <div class="result-item" onclick="showMovieDetail(${movie.id})">
+      <div class="result-item" onclick="showUpcomingMovieDetail(${movie.id})">
         <img src="${getPoster(movie.poster_path)}" alt="${movie.title}">
         <h3>${movie.title}</h3>
         <p>${movie.release_date ? movie.release_date.slice(0, 4) : t.comingSoon}</p>
@@ -258,6 +258,54 @@ async function loadUpcomingMovies() {
 
   } catch (error) {
     console.log("Upcoming movies could not load.", error);
+  }
+}
+
+async function showUpcomingMovieDetail(tmdbId) {
+  const t = getText();
+  const upcomingContainer = document.getElementById("upcomingMovies");
+
+  showLoader(t.loadingDetail);
+
+  try {
+    const detailResponse = await fetch(`/api/movie?tmdbDetailId=${tmdbId}&lang=${getLanguage()}`);
+    const movie = await detailResponse.json();
+
+    currentMovie = {
+      id: movie.id,
+      title: movie.title,
+      poster_path: movie.poster_path,
+      release_date: movie.release_date,
+      vote_average: movie.vote_average
+    };
+
+    upcomingContainer.innerHTML = `
+      <div class="detail-card">
+        <img src="${getPoster(movie.poster_path)}" alt="${movie.title}">
+
+        <div class="movie-info">
+          <h2>${movie.title}</h2>
+          <p><strong>${t.year}:</strong> ${movie.release_date ? movie.release_date.slice(0, 4) : t.unknown}</p>
+          <p><strong>${t.rating}:</strong> ${movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}</p>
+          <p><strong>${t.runtime}:</strong> ${movie.runtime ? movie.runtime + " " + t.minutes : t.unknown}</p>
+          <p><strong>${t.description}:</strong> ${movie.overview || t.noDescription}</p>
+
+          <button onclick="addToFavorites()">${t.addToFavorites}</button>
+          <button onclick="loadUpcomingMovies()">${t.backToResults}</button>
+        </div>
+      </div>
+    `;
+
+    document.querySelector(".upcoming-section").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+    message.textContent = "";
+  } catch (error) {
+    message.textContent = t.errorDetail;
+  } finally {
+    hideLoader();
   }
 }
 
@@ -350,6 +398,9 @@ window.showFavorites = showFavorites;
 window.loadPopularMovies = loadPopularMovies;
 window.loadMoviesByGenre = loadMoviesByGenre;
 window.updateLanguage = updateLanguage;
+window.showUpcomingMovieDetail = showUpcomingMovieDetail;
+window.scrollToMovies = scrollToMovies;
+
 
 function scrollToMovies() {
   const target = document.querySelector(".movies-section");
@@ -366,8 +417,6 @@ function scrollToMovies() {
     behavior: "smooth"
   });
 }
-
-window.scrollToMovies = scrollToMovies;
 
 function showToast(text) {
   const toast = document.getElementById("toast");
