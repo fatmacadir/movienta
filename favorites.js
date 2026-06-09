@@ -62,3 +62,18 @@ window.removeFromFavorites = removeFromFavorites;
 window.toggleFavoriteMenu = toggleFavoriteMenu;
 
 showFavoritesPage();
+
+document.addEventListener("mousemove", function (event) {
+
+  if (
+    !event.target.closest(".menu-dots") &&
+    !event.target.closest(".favorite-menu")
+  ) {
+
+    document.querySelectorAll(".favorite-menu").forEach(menu => {
+      menu.classList.remove("show");
+    });
+
+  }
+
+});
