@@ -56,17 +56,6 @@ function showFavoritesPage() {
       <p>${movie.release_date ? movie.release_date.slice(0, 4) : "Yıl bilinmiyor"}</p>
     </div>
   `).join("");
-  document.addEventListener("mouseover", function (event) {
-  document.querySelectorAll(".favorite-card").forEach(card => {
-    if (!card.contains(event.target)) {
-      const menu = card.querySelector(".favorite-menu");
-      if (menu) {
-        menu.classList.remove("show");
-      }
-    }
-  });
-});
-  
 }
 
 
@@ -88,4 +77,15 @@ document.addEventListener("mousemove", function (event) {
 
   }
 
+});
+
+document.addEventListener("click", function (event) {
+  if (
+    !event.target.closest(".menu-dots") &&
+    !event.target.closest(".favorite-menu")
+  ) {
+    document.querySelectorAll(".favorite-menu").forEach(menu => {
+      menu.classList.remove("show");
+    });
+  }
 });
