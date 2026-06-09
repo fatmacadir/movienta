@@ -16,29 +16,49 @@ function removeFromFavorites(id) {
   showFavoritesPage();
 }
 
+function toggleFavoriteMenu(id) {
+  const menu = document.getElementById(`fav-menu-${id}`);
+
+  document.querySelectorAll(".favorite-menu").forEach(item => {
+    if (item !== menu) {
+      item.classList.remove("show");
+    }
+  });
+
+  menu.classList.toggle("show");
+}
+
 function showFavoritesPage() {
   const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
   if (favorites.length === 0) {
-    favoritesContainer.innerHTML =
-      "<p>Henüz favori film eklenmedi.</p>";
+    favoritesContainer.innerHTML = "<p>Henüz favori film eklenmedi.</p>";
     return;
   }
 
   favoritesContainer.innerHTML = favorites.map(movie => `
-    <div class="result-item">
-      <img src="${getPoster(movie.poster_path)}" alt="${movie.title}">
+    <div class="result-item favorite-card">
+      <div class="poster-wrapper">
+        <img src="${getPoster(movie.poster_path)}" alt="${movie.title}">
+
+        <button class="menu-dots" onclick="toggleFavoriteMenu(${movie.id})">
+          ⋮
+        </button>
+
+        <div id="fav-menu-${movie.id}" class="favorite-menu">
+          <button onclick="removeFromFavorites(${movie.id})">
+            Favorilerden Çıkar
+          </button>
+        </div>
+      </div>
+
       <h3>${movie.title}</h3>
       <p>${movie.release_date ? movie.release_date.slice(0, 4) : "Yıl bilinmiyor"}</p>
-
-      <button class="remove-btn"
-              onclick="removeFromFavorites(${movie.id})">
-        Favorilerden Kaldır
-      </button>
     </div>
   `).join("");
 }
 
 window.removeFromFavorites = removeFromFavorites;
+window.toggleFavoriteMenu = toggleFavoriteMenu;
 
 showFavoritesPage();
