@@ -435,18 +435,27 @@ button:hover {
 #toast {
   position: fixed;
   top: 100px;
-  right: 30px;
-  background: #b2071b;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background: rgba(15, 15, 20, 0.95);
   color: white;
-  padding: 15px 22px;
-  border-radius: 12px;
+
+  padding: 14px 24px;
+
+  border-radius: 10px;
+
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+
   opacity: 0;
   pointer-events: none;
-  transition: 0.3s;
+  transition: opacity 0.3s ease;
+
   z-index: 9999;
-  box-shadow: 0 8px 25px rgba(0,0,0,.3);
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 #toast.show {
