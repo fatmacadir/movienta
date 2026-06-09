@@ -56,16 +56,15 @@ function showFavoritesPage() {
       <p>${movie.release_date ? movie.release_date.slice(0, 4) : "Yıl bilinmiyor"}</p>
     </div>
   `).join("");
-
-  document.querySelectorAll(".poster-wrapper").forEach(wrapper => {
-
-  wrapper.addEventListener("mouseleave", () => {
-
-    wrapper.querySelector(".favorite-menu")
-      ?.classList.remove("show");
-
+  document.addEventListener("mouseover", function (event) {
+  document.querySelectorAll(".favorite-card").forEach(card => {
+    if (!card.contains(event.target)) {
+      const menu = card.querySelector(".favorite-menu");
+      if (menu) {
+        menu.classList.remove("show");
+      }
+    }
   });
-
 });
   
 }
