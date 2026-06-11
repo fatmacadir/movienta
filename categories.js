@@ -5,19 +5,24 @@ const categoryModalBody = document.getElementById("categoryModalBody");
 
 let currentMovie = null;
 
-const genreNames = {
-  28: "Aksiyon",
-  35: "Komedi",
-  18: "Dram",
-  27: "Korku",
-  10749: "Romantik",
-  878: "Bilim Kurgu",
-  14: "Fantastik",
-  16: "Animasyon",
-  99: "Belgesel",
-  53: "Gerilim"
-};
+function getGenreName(genreId) {
+  const t = getText();
 
+  const genres = {
+    28: t.action,
+    35: t.comedy,
+    18: t.drama,
+    27: t.horror,
+    10749: t.romance,
+    878: t.scifi,
+    14: t.fantasy,
+    16: t.animation,
+    99: t.documentary,
+    53: t.thriller
+  };
+
+  return genres[genreId] || "Category";
+}
 function getLanguage() {
   return localStorage.getItem("language") || "tr-TR";
 }
@@ -151,7 +156,7 @@ async function loadCategoryMovies() {
     return;
   }
 
-  const genreName = genreNames[genreId] || "Kategori";
+  const genreName = getGenreName(genreId);
   categoryTitle.textContent = `${genreName} ${getText().movies}`;
 
   try {
