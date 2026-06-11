@@ -645,11 +645,13 @@ button:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  min-width: 42px;
   padding: 4px 10px;
   margin-left: 8px;
-  background: #1f2436;
+  background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.15);
   border-radius: 8px;
   color: white;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 15px;
 }
