@@ -58,6 +58,11 @@ const translations = {
     alreadyFavorite: "Bu film zaten favorilerde.",
     addedFavorite: "Film favorilere eklendi.",
     noFavorites: "Henüz favori film eklenmedi."
+    homeAboutTitle: "Movienta Hakkında",
+    homeAboutText1: "Movienta, kullanıcıların filmleri keşfetmesini kolaylaştırmak için geliştirilmiş modern bir film arama ve keşif platformudur.",
+    homeAboutText2: "Kullanıcılar popüler filmleri inceleyebilir, yakında çıkacak yapımları görüntüleyebilir, farklı kategorilerde yüksek puanlı filmleri keşfedebilir ve beğendikleri filmleri favorilerine ekleyebilir.",
+    homeAboutText3: "Platform; Türkçe, İngilizce, Almanca ve İspanyolca dil desteği sunar. Film bilgileri TMDB API ve OMDb API üzerinden alınır.",
+    homeAboutCopyright: "© 2026 Movienta. Bu proje eğitim amacıyla geliştirilmiştir."
   },
 
   "en-US": {
@@ -119,6 +124,12 @@ const translations = {
     alreadyFavorite: "This movie is already in favorites.",
     addedFavorite: "Movie added to favorites.",
     noFavorites: "No favorite movies added yet."
+
+    homeAboutTitle: "About Movienta",
+    homeAboutText1: "Movienta is a modern movie search and discovery platform designed to help users explore films easily.",
+    homeAboutText2: "Users can browse popular movies, discover upcoming releases, explore highly rated movies by category and save their favorite films.",
+    homeAboutText3: "The platform supports Turkish, English, German and Spanish. Movie data is provided through TMDB API and OMDb API.",
+    homeAboutCopyright: "© 2026 Movienta. This project was developed for educational purposes."
   },
 
   "de-DE": {
@@ -180,7 +191,13 @@ const translations = {
     alreadyFavorite: "Dieser Film ist bereits in den Favoriten.",
     addedFavorite: "Film wurde zu den Favoriten hinzugefügt.",
     noFavorites: "Noch keine Lieblingsfilme hinzugefügt."
-  },
+
+    homeAboutTitle: "Über Movienta",
+    homeAboutText1: "Movienta ist eine moderne Plattform zur Filmsuche und Filmentdeckung.",
+    homeAboutText2: "Benutzer können beliebte Filme ansehen, kommende Filme entdecken, hoch bewertete Filme nach Kategorien durchsuchen und Favoriten speichern.",
+    homeAboutText3: "Die Plattform unterstützt Türkisch, Englisch, Deutsch und Spanisch. Filmdaten werden über TMDB API und OMDb API bereitgestellt.",
+    homeAboutCopyright: "© 2026 Movienta. Dieses Projekt wurde zu Bildungszwecken entwickelt."
+      },
 
   "es-ES": {
     home: "Inicio",
@@ -241,5 +258,11 @@ const translations = {
     alreadyFavorite: "Esta película ya está en favoritos.",
     addedFavorite: "Película añadida a favoritos.",
     noFavorites: "Aún no se han añadido películas favoritas."
+
+    homeAboutTitle: "Acerca de Movienta",
+    homeAboutText1: "Movienta es una plataforma moderna de búsqueda y descubrimiento de películas.",
+    homeAboutText2: "Los usuarios pueden ver películas populares, descubrir próximos estrenos, explorar películas mejor valoradas por categoría y guardar sus favoritas.",
+    homeAboutText3: "La plataforma admite turco, inglés, alemán y español. La información de películas se obtiene mediante TMDB API y OMDb API.",
+    homeAboutCopyright: "© 2026 Movienta. Este proyecto fue desarrollado con fines educativos."
   }
 };
