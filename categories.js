@@ -32,6 +32,19 @@ function getPoster(path) {
     : "https://via.placeholder.com/300x450?text=No+Poster";
 }
 
+function ratingBadge(movie) {
+  const t = getText();
+
+  return `
+    <p>
+      <strong>${t.rating}:</strong>
+      <span class="rating-badge">
+        ${movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}
+      </span>
+    </p>
+  `;
+}
+
 function getGenreIdFromUrl() {
   const params = new URLSearchParams(window.location.search);
   return params.get("genre");
@@ -78,7 +91,7 @@ async function showCategoryMovieDetail(tmdbId) {
         <div class="category-detail-info">
           <h2>${movie.title}</h2>
           <p><strong>${t.year}:</strong> ${movie.release_date ? movie.release_date.slice(0, 4) : t.unknown}</p>
-          <p><strong>${t.rating}:</strong> ⭐ ${movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}</p>
+          ${ratingBadge(movie)}
           <p><strong>${t.runtime}:</strong> ${movie.runtime ? movie.runtime + " " + t.minutes : t.unknown}</p>
           <p><strong>${t.description}:</strong> ${movie.overview || t.noDescription}</p>
 
