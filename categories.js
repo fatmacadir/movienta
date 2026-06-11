@@ -59,14 +59,14 @@ function addToFavorites() {
   const exists = favorites.some(movie => movie.id === currentMovie.id);
 
   if (exists) {
-    alert(t.alreadyFavorite);
+    showToast(t.alreadyFavorite);
     return;
   }
 
   favorites.push(currentMovie);
   localStorage.setItem("favorites", JSON.stringify(favorites));
 
-  alert(t.addedFavorite);
+  showToast(t.addedFavorite);
 }
 
 async function showCategoryMovieDetail(tmdbId) {
@@ -107,7 +107,7 @@ async function showCategoryMovieDetail(tmdbId) {
     document.body.style.overflow = "hidden";
 
   } catch (error) {
-    alert(t.errorDetail);
+    showToast(t.errorDetail);
   }
 }
 
@@ -161,3 +161,16 @@ window.showCategoryMovieDetail = showCategoryMovieDetail;
 window.addToFavorites = addToFavorites;
 
 loadCategoryMovies();
+
+function showToast(text) {
+  const toast = document.getElementById("toast");
+
+  if (!toast) return;
+
+  toast.textContent = text;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2500);
+}
