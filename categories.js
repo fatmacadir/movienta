@@ -152,7 +152,7 @@ async function loadCategoryMovies() {
   }
 
   const genreName = genreNames[genreId] || "Kategori";
-  categoryTitle.textContent = `${genreName} Filmleri`;
+  categoryTitle.textContent = `${genreName} ${getText().movies}`;
 
   try {
     const response = await fetch(`/api/movie?genreId=${genreId}&lang=${getLanguage()}`);
