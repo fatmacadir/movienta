@@ -157,7 +157,7 @@ function showFavoritesPage() {
 
         <div id="fav-menu-${movie.id}" class="favorite-menu" onclick="event.stopPropagation()">
           <button onclick="removeFromFavorites(${movie.id})">
-            Favorilerden Çıkar
+            ${getText().removeFromFavorites}
           </button>
         </div>
       </div>
