@@ -350,12 +350,6 @@ function updateLanguage() {
   const setText = (id, text) => {
     const element = document.getElementById(id);
     if (element) element.textContent = text;
-
-    setText("homeAboutTitle", t.homeAboutTitle);
-    setText("homeAboutText1", t.homeAboutText1);
-    setText("homeAboutText2", t.homeAboutText2);
-    setText("homeAboutText3", t.homeAboutText3);
-    setText("homeAboutCopyright", t.homeAboutCopyright);
   };
 
   setText("homeText", t.home);
@@ -379,21 +373,16 @@ function updateLanguage() {
   setText("sectionTitle", t.popularMovies);
   setText("upcomingTitle", t.upcomingMovies);
 
+  // BURAYA EKLE
+  setText("homeAboutTitle", t.homeAboutTitle);
+  setText("homeAboutText1", t.homeAboutText1);
+  setText("homeAboutText2", t.homeAboutText2);
+  setText("homeAboutText3", t.homeAboutText3);
+  setText("homeAboutCopyright", t.homeAboutCopyright);
+
   if (movieInput) {
     movieInput.placeholder = t.searchPlaceholder;
   }
-}
-
-const languageSelect = document.getElementById("language");
-
-if (languageSelect) {
-  languageSelect.addEventListener("change", function () {
-    localStorage.setItem("language", languageSelect.value);
-
-    updateLanguage();
-    loadPopularMovies();
-    loadUpcomingMovies();
-  });
 }
 
 window.addToFavorites = addToFavorites;
