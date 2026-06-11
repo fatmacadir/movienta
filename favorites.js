@@ -142,7 +142,7 @@ function showFavoritesPage() {
   const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
   if (favorites.length === 0) {
-    favoritesContainer.innerHTML = "<p>Henüz favori film eklenmedi.</p>";
+    favoritesContainer.innerHTML = `<p>${getText().noFavorites}</p>`;
     return;
   }
 
