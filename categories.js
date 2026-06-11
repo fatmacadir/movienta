@@ -1,5 +1,9 @@
 const movieCard = document.getElementById("movieCard");
 const categoryTitle = document.getElementById("categoryTitle");
+const categoryModal = document.getElementById("categoryModal");
+const categoryModalBody = document.getElementById("categoryModalBody");
+
+let currentMovie = null;
 
 const genreNames = {
   28: "Aksiyon",
@@ -14,6 +18,14 @@ const genreNames = {
   53: "Gerilim"
 };
 
+function getLanguage() {
+  return localStorage.getItem("language") || "tr-TR";
+}
+
+function getText() {
+  return translations[getLanguage()] || translations["tr-TR"];
+}
+
 function getPoster(path) {
   return path
     ? `https://image.tmdb.org/t/p/w300${path}`
@@ -23,6 +35,72 @@ function getPoster(path) {
 function getGenreIdFromUrl() {
   const params = new URLSearchParams(window.location.search);
   return params.get("genre");
+}
+
+function addToFavorites() {
+  const t = getText();
+
+  if (!currentMovie) return;
+
+  let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+  const exists = favorites.some(movie => movie.id === currentMovie.id);
+
+  if (exists) {
+    alert(t.alreadyFavorite);
+    return;
+  }
+
+  favorites.push(currentMovie);
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+
+  alert(t.addedFavorite);
+}
+
+async function showCategoryMovieDetail(tmdbId) {
+  const t = getText();
+
+  try {
+    const response = await fetch(`/api/movie?tmdbDetailId=${tmdbId}&lang=${getLanguage()}`);
+    const movie = await response.json();
+
+    currentMovie = {
+      id: movie.id,
+      title: movie.title,
+      poster_path: movie.poster_path,
+      release_date: movie.release_date,
+      vote_average: movie.vote_average
+    };
+
+    categoryModalBody.innerHTML = `
+      <div class="category-detail">
+        <img src="${getPoster(movie.poster_path)}" alt="${movie.title}">
+
+        <div class="category-detail-info">
+          <h2>${movie.title}</h2>
+          <p><strong>${t.year}:</strong> ${movie.release_date ? movie.release_date.slice(0, 4) : t.unknown}</p>
+          <p><strong>${t.rating}:</strong> ⭐ ${movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}</p>
+          <p><strong>${t.runtime}:</strong> ${movie.runtime ? movie.runtime + " " + t.minutes : t.unknown}</p>
+          <p><strong>${t.description}:</strong> ${movie.overview || t.noDescription}</p>
+
+          <div class="modal-actions">
+            <button onclick="addToFavorites()">${t.addToFavorites}</button>
+            <button onclick="closeCategoryModal()">${t.backToResults}</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    categoryModal.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+
+  } catch (error) {
+    alert(t.errorDetail);
+  }
+}
+
+function closeCategoryModal() {
+  categoryModal.classList.add("hidden");
+  document.body.style.overflow = "";
 }
 
 async function loadCategoryMovies() {
@@ -38,7 +116,7 @@ async function loadCategoryMovies() {
   categoryTitle.textContent = `${genreName} Filmleri`;
 
   try {
-    const response = await fetch(`/api/movie?genreId=${genreId}&lang=tr-TR`);
+    const response = await fetch(`/api/movie?genreId=${genreId}&lang=${getLanguage()}`);
     const data = await response.json();
 
     if (!data.results || data.results.length === 0) {
@@ -47,7 +125,7 @@ async function loadCategoryMovies() {
     }
 
     movieCard.innerHTML = data.results.map(movie => `
-      <div class="result-item">
+      <div class="result-item" onclick="showCategoryMovieDetail(${movie.id})">
         <img src="${getPoster(movie.poster_path)}" alt="${movie.title}">
         <h3>${movie.title}</h3>
         <p>${movie.release_date ? movie.release_date.slice(0, 4) : "Yıl bilinmiyor"}</p>
@@ -58,5 +136,15 @@ async function loadCategoryMovies() {
     movieCard.innerHTML = "<p>Filmler yüklenemedi.</p>";
   }
 }
+
+categoryModal.addEventListener("click", function (event) {
+  if (event.target === categoryModal) {
+    closeCategoryModal();
+  }
+});
+
+window.closeCategoryModal = closeCategoryModal;
+window.showCategoryMovieDetail = showCategoryMovieDetail;
+window.addToFavorites = addToFavorites;
 
 loadCategoryMovies();
