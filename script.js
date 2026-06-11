@@ -165,7 +165,12 @@ async function showMovieDetail(tmdbId) {
         <div class="movie-info">
           <h2>${movie.title}</h2>
           <p><strong>${t.year}:</strong> ${movie.release_date ? movie.release_date.slice(0, 4) : t.unknown}</p>
-          <p><strong>${t.rating}:</strong> ⭐ ${movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}</p>
+          <p>
+            <strong>${t.rating}:</strong>
+            <span class="rating-badge">
+              ${movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}
+            </span>
+          </p>
           <p><strong>${t.runtime}:</strong> ${movie.runtime ? movie.runtime + " " + t.minutes : t.unknown}</p>
           <p><strong>${t.description}:</strong> ${movie.overview || t.noDescription}</p>
 
