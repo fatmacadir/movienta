@@ -350,6 +350,12 @@ function updateLanguage() {
   const setText = (id, text) => {
     const element = document.getElementById(id);
     if (element) element.textContent = text;
+
+    setText("homeAboutTitle", t.homeAboutTitle);
+    setText("homeAboutText1", t.homeAboutText1);
+    setText("homeAboutText2", t.homeAboutText2);
+    setText("homeAboutText3", t.homeAboutText3);
+    setText("homeAboutCopyright", t.homeAboutCopyright);
   };
 
   setText("homeText", t.home);
