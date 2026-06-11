@@ -518,3 +518,29 @@ button:hover {
 .favorite-menu button:hover {
   background: #b2071b;
 }
+
+.home-about {
+  margin-top: 80px;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 18px;
+  line-height: 1.7;
+}
+
+.home-about h2 {
+  margin-top: 0;
+  font-size: 28px;
+  color: white;
+}
+
+.home-about p {
+  color: #e6e6f0;
+  font-size: 17px;
+  margin-bottom: 18px;
+}
+
+.home-about .copyright {
+  margin-top: 35px;
+  color: #b9b9c9;
+  font-size: 14px;
+}
