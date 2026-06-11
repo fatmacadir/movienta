@@ -433,3 +433,11 @@ window.loadMoviesByGenre = loadMoviesByGenre;
 window.updateLanguage = updateLanguage;
 window.showUpcomingMovieDetail = showUpcomingMovieDetail;
 window.scrollToMovies = scrollToMovies;
+
+document.getElementById("language").addEventListener("change", function () {
+  localStorage.setItem("language", this.value);
+
+  updateLanguage();
+  loadPopularMovies();
+  loadUpcomingMovies();
+});
