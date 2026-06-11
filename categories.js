@@ -116,6 +116,32 @@ function closeCategoryModal() {
   document.body.style.overflow = "";
 }
 
+function updateLanguage() {
+  const t = getText();
+
+  const setText = (id, text) => {
+    const element = document.getElementById(id);
+    if (element) element.textContent = text;
+  };
+
+  setText("homeText", t.home);
+  setText("categoryText", `${t.categories} ▾`);
+  setText("favoriteText", t.favorites);
+
+  setText("genreAction", t.action);
+  setText("genreComedy", t.comedy);
+  setText("genreDrama", t.drama);
+  setText("genreHorror", t.horror);
+  setText("genreRomance", t.romance);
+  setText("genreSciFi", t.scifi);
+  setText("genreFantasy", t.fantasy);
+  setText("genreAnimation", t.animation);
+  setText("genreDocumentary", t.documentary);
+  setText("genreThriller", t.thriller);
+}
+
+updateLanguage();
+
 async function loadCategoryMovies() {
   const genreId = getGenreIdFromUrl();
 
