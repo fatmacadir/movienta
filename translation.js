@@ -64,6 +64,7 @@ const translations = {
     homeAboutText2: "Kullanıcılar popüler filmleri inceleyebilir, yakında çıkacak yapımları görüntüleyebilir, farklı kategorilerde yüksek puanlı filmleri keşfedebilir ve beğendikleri filmleri favorilerine ekleyebilir.",
     homeAboutText3: "Platform; Türkçe, İngilizce, Almanca ve İspanyolca dil desteği sunar. Film bilgileri TMDB API ve OMDb API üzerinden alınır.",
     homeAboutCopyright: "© 2026 Movienta. Bu proje eğitim amacıyla geliştirilmiştir."
+    removeFromFavorites: "Favorilerden Çıkar",
   },
 
   "en-US": {
@@ -131,6 +132,7 @@ const translations = {
     homeAboutText2: "Users can browse popular movies, discover upcoming releases, explore highly rated movies by category and save their favorite films.",
     homeAboutText3: "The platform supports Turkish, English, German and Spanish. Movie data is provided through TMDB API and OMDb API.",
     homeAboutCopyright: "© 2026 Movienta. This project was developed for educational purposes."
+    removeFromFavorites: "Remove from Favorites",
   },
 
   "de-DE": {
@@ -198,6 +200,7 @@ const translations = {
     homeAboutText2: "Benutzer können beliebte Filme ansehen, kommende Filme entdecken, hoch bewertete Filme nach Kategorien durchsuchen und Favoriten speichern.",
     homeAboutText3: "Die Plattform unterstützt Türkisch, Englisch, Deutsch und Spanisch. Filmdaten werden über TMDB API und OMDb API bereitgestellt.",
     homeAboutCopyright: "© 2026 Movienta. Dieses Projekt wurde zu Bildungszwecken entwickelt."
+    removeFromFavorites: "Aus Favoriten entfernen",
   },
 
   "es-ES": {
@@ -265,5 +268,6 @@ const translations = {
     homeAboutText2: "Los usuarios pueden ver películas populares, descubrir próximos estrenos, explorar películas mejor valoradas por categoría y guardar sus favoritas.",
     homeAboutText3: "La plataforma admite turco, inglés, alemán y español. La información de películas se obtiene mediante TMDB API y OMDb API.",
     homeAboutCopyright: "© 2026 Movienta. Este proyecto fue desarrollado con fines educativos."
+    removeFromFavorites: "Quitar de favoritos",
   }
 };
