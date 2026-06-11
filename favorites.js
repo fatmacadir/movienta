@@ -109,6 +109,35 @@ function closeFavoriteModal() {
   document.body.style.overflow = "";
 }
 
+function updateLanguage() {
+  const t = getText();
+
+  const setText = (id, text) => {
+    const element = document.getElementById(id);
+    if (element) element.textContent = text;
+  };
+
+  setText("homeText", t.home);
+  setText("categoryText", `${t.categories} ▾`);
+  setText("favoriteText", t.favorites);
+
+  setText("genreAction", t.action);
+  setText("genreComedy", t.comedy);
+  setText("genreDrama", t.drama);
+  setText("genreHorror", t.horror);
+  setText("genreRomance", t.romance);
+  setText("genreSciFi", t.scifi);
+  setText("genreFantasy", t.fantasy);
+  setText("genreAnimation", t.animation);
+  setText("genreDocumentary", t.documentary);
+  setText("genreThriller", t.thriller);
+
+  const title = document.querySelector(".movies-section h2");
+  if (title) title.textContent = t.myFavorites;
+}
+
+updateLanguage();
+
 function showFavoritesPage() {
   const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
