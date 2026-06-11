@@ -50,6 +50,17 @@ function getPoster(path) {
     : "https://via.placeholder.com/300x450?text=No+Poster";
 }
 
+function ratingBadge(movie) {
+  return `
+    <p>
+      <strong>${getText().rating}:</strong>
+      <span class="rating-badge">
+        ${movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}
+      </span>
+    </p>
+  `;
+}
+
 function displayMovieList(movies) {
   const t = getText();
 
@@ -165,12 +176,7 @@ async function showMovieDetail(tmdbId) {
         <div class="movie-info">
           <h2>${movie.title}</h2>
           <p><strong>${t.year}:</strong> ${movie.release_date ? movie.release_date.slice(0, 4) : t.unknown}</p>
-          <p>
-            <strong>${t.rating}:</strong>
-            <span class="rating-badge">
-              ${movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}
-            </span>
-          </p>
+          ${ratingBadge(movie)}
           <p><strong>${t.runtime}:</strong> ${movie.runtime ? movie.runtime + " " + t.minutes : t.unknown}</p>
           <p><strong>${t.description}:</strong> ${movie.overview || t.noDescription}</p>
 
@@ -291,7 +297,7 @@ async function showUpcomingMovieDetail(tmdbId) {
         <div class="movie-info">
           <h2>${movie.title}</h2>
           <p><strong>${t.year}:</strong> ${movie.release_date ? movie.release_date.slice(0, 4) : t.unknown}</p>
-          <p><strong>${t.rating}:</strong> ${movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}</p>
+          ${ratingBadge(movie)}
           <p><strong>${t.runtime}:</strong> ${movie.runtime ? movie.runtime + " " + t.minutes : t.unknown}</p>
           <p><strong>${t.description}:</strong> ${movie.overview || t.noDescription}</p>
 
@@ -360,7 +366,6 @@ function updateLanguage() {
   setText("homeText", t.home);
   setText("categoryText", `${t.categories} ▾`);
   setText("favoriteText", t.favorites);
-  setText("aboutText", t.about);
 
   setText("genreAction", t.action);
   setText("genreComedy", t.comedy);
@@ -378,7 +383,6 @@ function updateLanguage() {
   setText("sectionTitle", t.popularMovies);
   setText("upcomingTitle", t.upcomingMovies);
 
-  // BURAYA EKLE
   setText("homeAboutTitle", t.homeAboutTitle);
   setText("homeAboutText1", t.homeAboutText1);
   setText("homeAboutText2", t.homeAboutText2);
@@ -389,18 +393,6 @@ function updateLanguage() {
     movieInput.placeholder = t.searchPlaceholder;
   }
 }
-
-window.addToFavorites = addToFavorites;
-window.goBackToResults = goBackToResults;
-window.searchMovie = searchMovie;
-window.showMovieDetail = showMovieDetail;
-window.showFavorites = showFavorites;
-window.loadPopularMovies = loadPopularMovies;
-window.loadMoviesByGenre = loadMoviesByGenre;
-window.updateLanguage = updateLanguage;
-window.showUpcomingMovieDetail = showUpcomingMovieDetail;
-window.scrollToMovies = scrollToMovies;
-
 
 function scrollToMovies() {
   const target = document.querySelector(".movies-section");
@@ -430,3 +422,14 @@ function showToast(text) {
     toast.classList.remove("show");
   }, 2500);
 }
+
+window.addToFavorites = addToFavorites;
+window.goBackToResults = goBackToResults;
+window.searchMovie = searchMovie;
+window.showMovieDetail = showMovieDetail;
+window.showFavorites = showFavorites;
+window.loadPopularMovies = loadPopularMovies;
+window.loadMoviesByGenre = loadMoviesByGenre;
+window.updateLanguage = updateLanguage;
+window.showUpcomingMovieDetail = showUpcomingMovieDetail;
+window.scrollToMovies = scrollToMovies;
